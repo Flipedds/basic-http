@@ -1,0 +1,25 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+}
+
+group = 'com.flipedds'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.23"
+    implementation 'io.github.classgraph:classgraph:4.8.174'
+    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.9.23"
+}
+
+test {
+    useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(21)
+}
