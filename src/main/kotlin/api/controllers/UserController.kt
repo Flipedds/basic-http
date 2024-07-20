@@ -9,9 +9,10 @@ import core.enums.RequestMethod
 import core.helpers.Helpers.Companion.jsonify
 import api.entities.User
 import api.services.UserService
+import core.interfaces.BaseController
 
 @Controller
-class UserController(private val userService: UserService) {
+class UserController(private val userService: UserService): BaseController {
     @Mapping(path = "/users", method = RequestMethod.GET, queryParams = true, authentication = true)
     fun getUser(exchange: HttpExchange, mapOfQuerys: Map<String, String>) {
         if(!mapOfQuerys.containsKey("id")){

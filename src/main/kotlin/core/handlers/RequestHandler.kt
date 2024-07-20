@@ -9,10 +9,11 @@ import core.catchers.ResponseCatchers.Companion.resourceNotFound
 import java.io.IOException
 import java.lang.reflect.Method
 import core.helpers.Helpers.Companion.queryToMap
+import core.interfaces.BaseController
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class RequestHandler(private val resource: Any, private val method: Method) : HttpHandler {
+class RequestHandler(private val resource: BaseController, private val method: Method) : HttpHandler {
     @Throws(IOException::class)
     override fun handle(exchange: HttpExchange) {
         println(

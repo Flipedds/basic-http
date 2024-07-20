@@ -1,0 +1,3 @@
+package core.interfaces
+
+interface BaseController
