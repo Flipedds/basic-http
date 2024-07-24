@@ -1,10 +1,11 @@
 package api.services
 
 import api.entities.User
-import api.repositories.UserRepository
+import api.interfaces.IUserRepository
+import api.interfaces.IUserService
 
-class UserService(private val userRepository: UserRepository) {
-    fun getUserById(id: Int) : User {
+class UserService(private val userRepository: IUserRepository): IUserService {
+    override fun getUserById(id: Int) : User {
         return userRepository.getUserById(id)
     }
 }

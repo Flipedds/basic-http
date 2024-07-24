@@ -1,9 +1,10 @@
 package api.repositories
 
 import api.entities.User
+import api.interfaces.IUserRepository
 
-class UserRepository {
-    fun getUserById(id: Int) : User {
+class UserRepository: IUserRepository {
+    override fun getUserById(id: Int) : User {
         return User(id = id, name = "teste")
     }
 }

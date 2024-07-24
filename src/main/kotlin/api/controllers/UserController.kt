@@ -5,14 +5,14 @@ import core.annotations.Mapping
 import core.annotations.Controller
 import core.enums.RequestMethod
 import api.entities.User
-import api.services.UserService
+import api.interfaces.IUserService
 import core.domain.Json
 import core.enums.StatusCode
 import core.interfaces.BaseController
 import core.responses.HttpResponse
 
 @Controller
-class UserController(private val userService: UserService) : BaseController {
+class UserController(private val userService: IUserService) : BaseController {
     @Mapping(path = "/users", method = RequestMethod.GET, queryParams = true, authentication = true)
     fun getUser(exchange: HttpExchange, mapOfQuerys: Map<String, String>) {
         if (!mapOfQuerys.containsKey("id")) {
