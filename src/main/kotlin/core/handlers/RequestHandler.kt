@@ -6,9 +6,9 @@ import core.annotations.Mapping
 import core.domain.Json
 import core.extensions.send
 import core.enums.StatusCode
+import core.extensions.toMapIfQuery
 import java.io.IOException
 import java.lang.reflect.Method
-import core.helpers.Helpers.Companion.queryToMap
 import core.interfaces.BaseController
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -56,7 +56,7 @@ class RequestHandler(private val resource: BaseController, private val method: M
         }
 
         if (mapping.queryParams && exchange.requestURI.query.isNotEmpty()) {
-            exchange.send(method.invoke(resource, queryToMap(exchange.requestURI.query)) as Json<Any>)
+            exchange.send(method.invoke(resource, exchange.requestURI.query.toMapIfQuery()["id"]) as Json<Any>)
             return
         }
         exchange.send(method.invoke(resource) as Json<Any>)
