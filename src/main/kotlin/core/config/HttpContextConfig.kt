@@ -3,6 +3,7 @@ package core.config
 import com.sun.net.httpserver.Authenticator
 import com.sun.net.httpserver.HttpServer
 import core.annotations.Mapping
+import core.annotations.UseAuthentication
 import core.handlers.RequestHandler
 import core.interfaces.BaseController
 import java.lang.reflect.Constructor
@@ -20,8 +21,9 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
     fun createContexts(resource: BaseController) {
         resource.javaClass.methods.forEach loop@{ method: Method ->
             val mapping: Mapping = method.getAnnotation(Mapping::class.java) ?: return@loop
+            val useAuthentication: UseAuthentication? = method.getAnnotation(UseAuthentication::class.java)
 
-            if (!mapping.authentication) {
+            if (useAuthentication == null) {
                 server.createContext(mapping.path, RequestHandler(resource, method))
                 println(
                     "path: ${mapping.path} " +
