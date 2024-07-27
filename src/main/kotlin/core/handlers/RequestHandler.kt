@@ -3,6 +3,7 @@ package core.handlers
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
 import core.annotations.Mapping
+import core.annotations.QueryParam
 import core.domain.Json
 import core.extensions.send
 import core.enums.StatusCode
@@ -12,6 +13,9 @@ import java.lang.reflect.Method
 import core.interfaces.BaseController
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.hasAnnotation
+import kotlin.reflect.jvm.kotlinFunction
 
 @Suppress("UNCHECKED_CAST")
 class RequestHandler(private val resource: BaseController, private val method: Method) : HttpHandler {
@@ -45,20 +49,22 @@ class RequestHandler(private val resource: BaseController, private val method: M
             )
             return
         }
-        if (mapping.queryParams && exchange.requestURI.query == null) {
-            exchange.send(
-                Json(
-                    message = "Bad Request !! " + "This resource needs at least one query parameter !!",
-                    code = StatusCode.NotAllowed.code
-                )
-            )
-            return
-        }
 
-        if (mapping.queryParams && exchange.requestURI.query.isNotEmpty()) {
-            exchange.send(method.invoke(resource, exchange.requestURI.query.toMapIfQuery()["id"]) as Json<Any>)
-            return
+        val methodParameters = method.kotlinFunction?.parameters
+        val listOfParameters = mutableListOf<Any?>()
+
+        methodParameters?.forEach { parameter ->
+            if (parameter.hasAnnotation<QueryParam>()) {
+                listOfParameters.add(
+                    exchange.requestURI.query?.toMapIfQuery()?.get(parameter.findAnnotation<QueryParam>()!!.key)
+                )
+            }
         }
-        exchange.send(method.invoke(resource) as Json<Any>)
+        exchange.send(
+            method.invoke(
+                resource,
+                *listOfParameters.toTypedArray()
+            ) as Json<Any>
+        )
     }
 }

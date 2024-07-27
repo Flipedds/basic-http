@@ -7,6 +7,5 @@ import core.enums.RequestMethod
 annotation class Mapping(
     val path: String,
     val method: RequestMethod,
-    val queryParams: Boolean,
     val authentication: Boolean
 )

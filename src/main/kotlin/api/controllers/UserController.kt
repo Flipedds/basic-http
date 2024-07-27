@@ -5,6 +5,7 @@ import core.annotations.Controller
 import core.enums.RequestMethod
 import api.entities.User
 import api.interfaces.IUserService
+import core.annotations.QueryParam
 import core.domain.Json
 import core.enums.StatusCode
 import core.interfaces.BaseController
@@ -12,8 +13,8 @@ import core.interfaces.BaseController
 
 @Controller
 class UserController(private val userService: IUserService) : BaseController {
-    @Mapping(path = "/users", method = RequestMethod.GET, queryParams = true, authentication = true)
-    fun getUser(id: String?): Json<User> {
+    @Mapping(path = "/users", method = RequestMethod.GET, authentication = true)
+    fun getUser(@QueryParam("id") id: String?): Json<User> {
         if (id == null) {
             return Json(
                 message = "Bad Request !! " + "Query parameter id is required !!",
@@ -27,7 +28,7 @@ class UserController(private val userService: IUserService) : BaseController {
         )
     }
 
-    @Mapping(path = "/users/", method = RequestMethod.GET, queryParams = false, authentication = false)
+    @Mapping(path = "/users/", method = RequestMethod.GET, authentication = false)
     fun getUserList(): Json<List<User>> {
         return Json(
             message = "Users found !!",

@@ -26,7 +26,6 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
                 println(
                     "path: ${mapping.path} " +
                             "-> Method: ${mapping.method.name} " +
-                            "-> Query Params: ${mapping.queryParams}" +
                             " -> Authentication: false"
                 )
                 return@loop
@@ -41,7 +40,6 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
             println(
                 "path: ${mapping.path} " +
                         "-> Method: ${mapping.method.name} " +
-                        "-> Query Params: ${mapping.queryParams}" +
                         " -> Authentication: ${authConstructorAndParameters != null}"
             )
         }
