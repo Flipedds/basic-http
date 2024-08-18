@@ -1,0 +1,14 @@
+###
+GET http://localhost:3000/users?id=100
+Authorization: Basic user pass
+Content-Type: application/json
+
+###
+GET http://localhost:3000/users/
+Content-Type: application/json
+
+###
+POST http://localhost:3000/users/create
+Content-Type: application/json
+
+{ "id" : 200 , "name": "teste"}

@@ -1,12 +1,9 @@
 package api.controllers
 
-import core.annotations.Mapping
-import core.annotations.Controller
 import core.enums.RequestMethod
 import api.entities.User
 import api.interfaces.IUserService
-import core.annotations.QueryParam
-import core.annotations.UseAuthentication
+import core.annotations.*
 import core.domain.Json
 import core.enums.StatusCode
 import core.interfaces.BaseController
@@ -27,6 +24,17 @@ class UserController(private val userService: IUserService) : BaseController {
             message = "User found !!",
             code = StatusCode.Ok.code,
             data = userService.getUserById(id.toInt())
+        )
+    }
+
+    @Mapping(path = "/users/create", method = RequestMethod.POST)
+    fun postUser(@Body user: User): Json<User> {
+        println(user.id)
+        println(user.name)
+        return Json(
+            message = "User created",
+            code = StatusCode.Created.code,
+            data = user
         )
     }
 

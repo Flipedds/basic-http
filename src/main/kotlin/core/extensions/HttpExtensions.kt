@@ -32,3 +32,7 @@ fun String.toMapIfQuery(): Map<String, String> {
 fun Json<Any>.toJsonString(): String {
     return Gson().toJson(this)
 }
+
+fun String.jsonToObject(typeName: String): Any {
+    return Gson().fromJson(this, Class.forName(typeName))
+}
