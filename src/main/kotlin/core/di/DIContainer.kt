@@ -21,7 +21,7 @@ object DIContainer {
                 scanResult
                     .getClassesWithAnyAnnotation(Injectable::class.java.name)
                     .forEach { classWithInjectable: ClassInfo ->
-                        createBean(
+                        getBean(
                             classWithInjectable.loadClass()
                         )
                     }
