@@ -54,9 +54,7 @@ object DIContainer {
         val parameterTypes: Array<Class<*>> = constructor.parameterTypes
         val dependencies = arrayOfNulls<Any>(parameterTypes.size)
 
-        for (i in parameterTypes.indices) {
-            dependencies[i] = getBean(parameterTypes[i])
-        }
+        parameterTypes.indices.forEach { i -> dependencies[i] = getBean(parameterTypes[i]) }
 
         val bean = constructor.newInstance(*dependencies)
         beanMap[keyForBeanClass] = bean

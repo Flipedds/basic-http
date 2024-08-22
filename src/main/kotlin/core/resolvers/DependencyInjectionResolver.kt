@@ -1,30 +1,31 @@
 package core.resolvers
 
-import core.di.DIContainer
+import core.di.DIContainer.getBean
 import java.lang.reflect.Constructor
 import kotlin.jvm.Throws
 import kotlin.reflect.KParameter
-import kotlin.reflect.jvm.javaType
 import kotlin.reflect.jvm.kotlinFunction
 
 @Suppress("UNCHECKED_CAST")
-class DependencyInjectionResolver<T>(private val className: String) {
+class DependencyInjectionResolver<T>(
+    private val clazz: Class<*>) {
 
     @Throws(ClassNotFoundException::class)
     fun getInstance(): T {
-        val injectableClass: Class<*> = Class.forName(className)
-        val injectableConstructor: Constructor<*> = injectableClass.constructors.first()
-        val injectableConstructorParameters: List<KParameter> = injectableConstructor.kotlinFunction!!.parameters
+        val constructor: Constructor<*> = clazz.constructors.first()
+        val injectableConstructorParameters: List<KParameter> = constructor.kotlinFunction!!.parameters
+        val parameterTypes: Array<Class<*>> = constructor.parameterTypes
+        val dependencies: Array<Any?> = arrayOfNulls(parameterTypes.size)
 
         if (injectableConstructorParameters.isEmpty()) {
-            return injectableConstructor.newInstance() as T
+            return constructor.newInstance() as T
         }
+
+        parameterTypes.indices.forEach { i -> dependencies[i] = getBean(parameterTypes[i]) }
+
         /**
          * Return an instance of <T> with injected parameters
          */
-        return injectableConstructor.kotlinFunction!!.callBy(injectableConstructorParameters.associate { kParameter ->
-            return@associate injectableConstructorParameters[kParameter.index] to DIContainer.getBean(
-                Class.forName(kParameter.type.javaType.typeName))
-        }) as T
+        return constructor.newInstance(*dependencies) as T
     }
 }

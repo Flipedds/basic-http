@@ -25,10 +25,9 @@ class ControllersDependencyInjectionConfig(
         ClassGraph().enableAllInfo().acceptPackages().scan().use { scanResult: ScanResult ->
             scanResult.getClassesWithAnyAnnotation(Controller::class.java.name)
                 .forEach { classWithController: ClassInfo ->
-                    val resource = DependencyInjectionResolver<BaseController>(classWithController.name).getInstance()
-                    HttpContextConfig(
-                        properties = properties, server = server
-                    ).createContexts(resource)
+                    val resource = DependencyInjectionResolver<BaseController>(
+                        classWithController.loadClass()).getInstance()
+                    HttpContextConfig(properties = properties, server = server).createContexts(resource)
                 }
         }
     }
