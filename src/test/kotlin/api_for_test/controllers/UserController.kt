@@ -1,8 +1,8 @@
-package api.controllers
+package api_for_test.controllers
 
 import core.enums.RequestMethod
-import api.entities.User
-import api.interfaces.IUserService
+import api_for_test.entities.User
+import api_for_test.interfaces.IUserService
 import core.annotations.*
 import core.domain.Json
 import core.enums.StatusCode

@@ -1,4 +1,4 @@
-package api.auth
+package api_for_test.auth
 
 import com.sun.net.httpserver.BasicAuthenticator
 
