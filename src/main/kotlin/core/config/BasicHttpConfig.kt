@@ -9,31 +9,53 @@ import java.net.InetSocketAddress
 import java.util.*
 import java.util.concurrent.Executors
 
-class BasicHttpConfig {
-    companion object {
-        private lateinit var server: HttpServer
-        fun startServer() {
-            val props = Properties(); props.load(FileInputStream("src/main/resources/server.properties"))
-            val hostname = props.getProperty("server.host") ?: "localhost"
-            val port = if (props.getProperty("server.port") != null) props.getProperty("server.port").toInt() else 8000
-            val address = InetSocketAddress(hostname, port)
-            server = HttpServerProvider.provider().createHttpServer(address, 0).apply {
-                ControllersDependencyInjectionConfig(properties = props, server = this).withReflection()
-                executor = Executors.newCachedThreadPool()
-                BasicLog.getLogWithColorFor<BasicHttpConfig>(
-                    LogColors.GREEN.ansiCode,
-                    "Running server on ${getAddress().hostString} in port ${getAddress().port}")
-                start()
-            }
-        }
+object BasicHttpConfig {
+    private lateinit var server: HttpServer
+    private const val DEFAULT_PORT: Int = 3000
+    private const val DEFAULT_HOST: String = "localhost"
+    private val props: Properties = Properties()
 
-        fun stopServer() {
-            if (::server.isInitialized) {
-                server.stop(0)
+    init {
+        runCatching {
+            FileInputStream("src/main/resources/server.properties")
+        }.onSuccess { props.load(it) }
+            .onFailure {
                 BasicLog.getLogWithColorFor<BasicHttpConfig>(
-                    LogColors.RED.ansiCode,
-                    "Server stopped")
+                    LogColors.YELLOW.ansiCode,
+                    StringBuilder()
+                        .append("Using Server Default Properties !\n")
+                        .append("| Add server.properties on main properties folder |\n")
+                        .append("| Options:\n")
+                        .append("| server.host -> example: localhost\n")
+                        .append("| server.port -> example: 3000\n")
+                        .append("| server.auth -> example: api.auth.ApiRestBasicAuthentication\n")
+                        .toString()
+                )
             }
+    }
+
+    fun startServer() {
+        val hostname = props.getProperty("server.host") ?: DEFAULT_HOST
+        val port = props.getProperty("server.port")?.toIntOrNull() ?: DEFAULT_PORT
+        val address = InetSocketAddress(hostname, port)
+        server = HttpServerProvider.provider().createHttpServer(address, 0).apply {
+            ControllersDependencyInjectionConfig(properties = props, server = this).withReflection()
+            executor = Executors.newCachedThreadPool()
+            BasicLog.getLogWithColorFor<BasicHttpConfig>(
+                LogColors.GREEN.ansiCode,
+                "Running server on ${getAddress().hostString} in port ${getAddress().port}"
+            )
+            start()
+        }
+    }
+
+    fun stopServer() {
+        if (::server.isInitialized) {
+            server.stop(0)
+            BasicLog.getLogWithColorFor<BasicHttpConfig>(
+                LogColors.RED.ansiCode,
+                "Server stopped"
+            )
         }
     }
 }
