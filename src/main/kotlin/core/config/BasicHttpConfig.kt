@@ -2,6 +2,8 @@ package core.config
 
 import com.sun.net.httpserver.HttpServer
 import com.sun.net.httpserver.spi.HttpServerProvider
+import core.enums.LogColors
+import core.logs.BasicLog
 import java.io.FileInputStream
 import java.net.InetSocketAddress
 import java.util.*
@@ -18,7 +20,9 @@ class BasicHttpConfig {
             server = HttpServerProvider.provider().createHttpServer(address, 0).apply {
                 ControllersDependencyInjectionConfig(properties = props, server = this).withReflection()
                 executor = Executors.newCachedThreadPool()
-                println("Running server on ${getAddress().hostString} in port ${getAddress().port}")
+                BasicLog.getLogWithColorFor<BasicHttpConfig>(
+                    LogColors.GREEN.ansiCode,
+                    "Running server on ${getAddress().hostString} in port ${getAddress().port}")
                 start()
             }
         }
@@ -26,7 +30,9 @@ class BasicHttpConfig {
         fun stopServer() {
             if (::server.isInitialized) {
                 server.stop(0)
-                println("Server stopped")
+                BasicLog.getLogWithColorFor<BasicHttpConfig>(
+                    LogColors.RED.ansiCode,
+                    "Server stopped")
             }
         }
     }

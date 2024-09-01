@@ -1,6 +1,8 @@
 package core.di
 
 import core.annotations.Injectable
+import core.enums.LogColors
+import core.logs.BasicLog
 import io.github.classgraph.ClassGraph
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.ScanResult
@@ -26,9 +28,16 @@ object DIContainer {
                         )
                     }
             }
-        println(" <<<< ------ BEANS ---- >>>> ")
-        beanMap.forEach { (clazz, any) -> println("${clazz.simpleName} -> $any") }
-        println(" <<<< ----------------- >>>> ")
+
+        BasicLog.getLogWithColorFor<DIContainer>(
+            LogColors.BLUE.ansiCode, " <<<< ------ BEANS ---- >>>> ")
+
+        beanMap.forEach { (clazz, any) ->
+            BasicLog.getLogWithColorFor<DIContainer>(
+            LogColors.BLUE.ansiCode, "${clazz.simpleName} -> $any") }
+
+        BasicLog.getLogWithColorFor<DIContainer>(
+            LogColors.BLUE.ansiCode," <<<< ----------------- >>>> ")
     }
 
     @Throws(NotImplementedError::class)

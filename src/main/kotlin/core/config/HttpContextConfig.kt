@@ -4,8 +4,10 @@ import com.sun.net.httpserver.Authenticator
 import com.sun.net.httpserver.HttpServer
 import core.annotations.Mapping
 import core.annotations.UseAuthentication
+import core.enums.LogColors
 import core.handlers.RequestHandler
 import core.interfaces.BaseController
+import core.logs.BasicLog
 import java.lang.reflect.Constructor
 import java.lang.reflect.Method
 import java.util.Optional
@@ -25,7 +27,8 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
 
             if (useAuthentication == null) {
                 server.createContext(mapping.path, RequestHandler(resource, method))
-                println(
+                BasicLog.getLogWithColorFor<HttpContextConfig>(
+                    LogColors.YELLOW.ansiCode,
                     "path: ${mapping.path} " +
                             "-> Method: ${mapping.method.name} " +
                             " -> Authentication: false"
@@ -39,7 +42,8 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
                     )
                 ) as Authenticator?
             )
-            println(
+            BasicLog.getLogWithColorFor<HttpContextConfig>(
+                LogColors.YELLOW.ansiCode,
                 "path: ${mapping.path} " +
                         "-> Method: ${mapping.method.name} " +
                         " -> Authentication: ${authConstructorAndParameters != null}"
@@ -55,7 +59,8 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
             val parameters: List<KParameter> = authClassConstructor.kotlinFunction!!.parameters
             pairOfAuthConstructorAndParameters = authClassConstructor to parameters
         } catch (exception: ClassNotFoundException) {
-            println("Auth class not found: ${exception.message}")
+            BasicLog.getLogWithColorFor<HttpContextConfig>(
+                LogColors.RED.ansiCode,"Auth class not found: ${exception.message}")
         }
         return Optional.ofNullable(pairOfAuthConstructorAndParameters)
     }

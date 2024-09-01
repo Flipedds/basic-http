@@ -6,11 +6,13 @@ import core.annotations.Body
 import core.annotations.Mapping
 import core.annotations.QueryParam
 import core.domain.Json
+import core.enums.LogColors
 import core.enums.StatusCode
 import core.extensions.jsonToObject
 import core.extensions.send
 import core.extensions.toMapIfQuery
 import core.interfaces.BaseController
+import core.logs.BasicLog
 import java.io.IOException
 import java.lang.reflect.Method
 import java.nio.charset.StandardCharsets
@@ -25,7 +27,8 @@ import kotlin.reflect.jvm.kotlinFunction
 class RequestHandler(private val resource: BaseController, private val method: Method) : HttpHandler {
     @Throws(IOException::class)
     override fun handle(exchange: HttpExchange) {
-        println(
+        BasicLog.getLogWithColorFor<RequestHandler>(
+            LogColors.GREEN.ansiCode,
             "Request to -> ${exchange.requestURI.path} with method: ${exchange.requestMethod} at ${
                 LocalTime.now().format(
                     DateTimeFormatter.ofPattern("HH:mm:ss")
