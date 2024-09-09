@@ -30,14 +30,14 @@ object DIContainer {
             }
 
         BasicLog.getLogWithColorFor<DIContainer>(
-            LogColors.BLUE.ansiCode, " <<<< ------ BEANS ---- >>>> ")
+            LogColors.BLUE, " <<<< ------ BEANS ---- >>>> ")
 
         beanMap.forEach { (clazz, any) ->
             BasicLog.getLogWithColorFor<DIContainer>(
-            LogColors.BLUE.ansiCode, "${clazz.simpleName} -> $any") }
+            LogColors.BLUE, "${clazz.simpleName} -> $any") }
 
         BasicLog.getLogWithColorFor<DIContainer>(
-            LogColors.BLUE.ansiCode," <<<< ----------------- >>>> ")
+            LogColors.BLUE," <<<< ----------------- >>>> ")
     }
 
     @Throws(NotImplementedError::class)

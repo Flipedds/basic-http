@@ -28,7 +28,7 @@ class RequestHttpHandler(
     @Throws(IOException::class)
     override fun handle(exchange: HttpExchange) {
         BasicLog.getLogWithColorFor<RequestHttpHandler>(
-            LogColors.GREEN.ansiCode,
+            LogColors.GREEN,
             "Request to -> ${exchange.requestURI.path} with method: ${exchange.requestMethod} at ${
                 LocalTime.now().format(
                     DateTimeFormatter.ofPattern("HH:mm:ss")

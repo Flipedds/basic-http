@@ -28,7 +28,7 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
             if (useAuthentication == null) {
                 server.createContext(mapping.path, RequestHttpHandler(resource, method))
                 BasicLog.getLogWithColorFor<HttpContextConfig>(
-                    LogColors.YELLOW.ansiCode,
+                    LogColors.YELLOW,
                     "path: ${mapping.path} " +
                             "-> Method: ${mapping.method.name} " +
                             " -> Authentication: false"
@@ -43,7 +43,7 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
                 ) as Authenticator?
             )
             BasicLog.getLogWithColorFor<HttpContextConfig>(
-                LogColors.YELLOW.ansiCode,
+                LogColors.YELLOW,
                 "path: ${mapping.path} " +
                         "-> Method: ${mapping.method.name} " +
                         " -> Authentication: ${authConstructorAndParameters != null}"
@@ -60,7 +60,7 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
             pairOfAuthConstructorAndParameters = authClassConstructor to parameters
         } catch (exception: ClassNotFoundException) {
             BasicLog.getLogWithColorFor<HttpContextConfig>(
-                LogColors.RED.ansiCode,"Auth class not found: ${exception.message}")
+                LogColors.RED,"Auth class not found: ${exception.message}")
         }
         return Optional.ofNullable(pairOfAuthConstructorAndParameters)
     }

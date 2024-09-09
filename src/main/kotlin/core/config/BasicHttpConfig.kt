@@ -21,7 +21,7 @@ object BasicHttpConfig {
         }.onSuccess { props.load(it) }
             .onFailure {
                 BasicLog.getLogWithColorFor<BasicHttpConfig>(
-                    LogColors.YELLOW.ansiCode,
+                    LogColors.YELLOW,
                     StringBuilder()
                         .append("Using Server Default Properties !\n")
                         .append("| Add server.properties on main properties folder |\n")
@@ -42,7 +42,7 @@ object BasicHttpConfig {
             ControllersDependencyInjectionConfig(properties = props, server = this).withReflection()
             executor = Executors.newCachedThreadPool()
             BasicLog.getLogWithColorFor<BasicHttpConfig>(
-                LogColors.GREEN.ansiCode,
+                LogColors.GREEN,
                 "Running server on ${getAddress().hostString} in port ${getAddress().port}"
             )
             start()
@@ -53,7 +53,7 @@ object BasicHttpConfig {
         if (::server.isInitialized) {
             server.stop(0)
             BasicLog.getLogWithColorFor<BasicHttpConfig>(
-                LogColors.RED.ansiCode,
+                LogColors.RED,
                 "Server stopped"
             )
         }
