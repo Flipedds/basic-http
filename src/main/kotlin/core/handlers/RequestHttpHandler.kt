@@ -41,7 +41,7 @@ class RequestHttpHandler(
             exchange.send(
                 Json(
                     message = "Resource Not Found !!",
-                    code = StatusCode.NotFound.code
+                    statusCode = StatusCode.NotFound,
                 )
             )
             return
@@ -51,7 +51,7 @@ class RequestHttpHandler(
             exchange.send(
                 Json(
                     message = "Method not allowed !!",
-                    code = StatusCode.NotAllowed.code
+                    statusCode = StatusCode.NotAllowed
                 )
             )
             return

@@ -17,12 +17,12 @@ class UserController(private val userService: IUserService) : BaseController {
         if (id == null) {
             return Json(
                 message = "Bad Request !! " + "Query parameter id is required !!",
-                code = StatusCode.BadRequest.code
+                statusCode = StatusCode.BadRequest
             )
         }
         return Json(
             message = "User found !!",
-            code = StatusCode.Ok.code,
+            statusCode = StatusCode.Ok,
             data = userService.getUserById(id.toInt())
         )
     }
@@ -33,7 +33,7 @@ class UserController(private val userService: IUserService) : BaseController {
         println(user.name)
         return Json(
             message = "User created",
-            code = StatusCode.Created.code,
+            statusCode = StatusCode.Created,
             data = user
         )
     }
@@ -42,7 +42,7 @@ class UserController(private val userService: IUserService) : BaseController {
     fun getUserList(): Json<List<User>> {
         return Json(
             message = "Users found !!",
-            code = StatusCode.Ok.code,
+            statusCode = StatusCode.Ok,
             data = listOf(
                 User(1, "teste"), User(2, "teste"), User(3, "teste")
             )
