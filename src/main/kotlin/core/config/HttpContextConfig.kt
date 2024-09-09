@@ -5,7 +5,7 @@ import com.sun.net.httpserver.HttpServer
 import core.annotations.Mapping
 import core.annotations.UseAuthentication
 import core.enums.LogColors
-import core.handlers.RequestHandler
+import core.handlers.RequestHttpHandler
 import core.interfaces.BaseController
 import core.logs.BasicLog
 import java.lang.reflect.Constructor
@@ -26,7 +26,7 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
             val useAuthentication: UseAuthentication? = method.getAnnotation(UseAuthentication::class.java)
 
             if (useAuthentication == null) {
-                server.createContext(mapping.path, RequestHandler(resource, method))
+                server.createContext(mapping.path, RequestHttpHandler(resource, method))
                 BasicLog.getLogWithColorFor<HttpContextConfig>(
                     LogColors.YELLOW.ansiCode,
                     "path: ${mapping.path} " +
@@ -35,7 +35,7 @@ class HttpContextConfig(val properties: Properties, private val server: HttpServ
                 )
                 return@loop
             }
-            server.createContext(mapping.path, RequestHandler(resource, method)).setAuthenticator(
+            server.createContext(mapping.path, RequestHttpHandler(resource, method)).setAuthenticator(
                 authConstructorAndParameters?.first?.kotlinFunction?.callBy(
                     mapOf(
                         authConstructorAndParameters.second[0] to mapping.path

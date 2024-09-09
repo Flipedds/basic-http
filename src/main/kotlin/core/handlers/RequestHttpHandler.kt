@@ -8,10 +8,8 @@ import core.annotations.QueryParam
 import core.domain.Json
 import core.enums.LogColors
 import core.enums.StatusCode
-import core.extensions.jsonToObject
-import core.extensions.send
-import core.extensions.toMapIfQuery
 import core.interfaces.BaseController
+import core.interfaces.HttpHandlerExtensions
 import core.logs.BasicLog
 import java.io.IOException
 import java.lang.reflect.Method
@@ -24,10 +22,12 @@ import kotlin.reflect.jvm.javaType
 import kotlin.reflect.jvm.kotlinFunction
 
 @Suppress("UNCHECKED_CAST")
-class RequestHandler(private val resource: BaseController, private val method: Method) : HttpHandler {
+class RequestHttpHandler(
+    private val resource: BaseController,
+    private val method: Method) : HttpHandler, HttpHandlerExtensions {
     @Throws(IOException::class)
     override fun handle(exchange: HttpExchange) {
-        BasicLog.getLogWithColorFor<RequestHandler>(
+        BasicLog.getLogWithColorFor<RequestHttpHandler>(
             LogColors.GREEN.ansiCode,
             "Request to -> ${exchange.requestURI.path} with method: ${exchange.requestMethod} at ${
                 LocalTime.now().format(
@@ -74,11 +74,14 @@ class RequestHandler(private val resource: BaseController, private val method: M
 
             if (parameter.hasAnnotation<Body>()) {
                 listOfParameters.add(
-                    String(exchange
-                        .requestBody
-                        .readAllBytes(),
-                        StandardCharsets.UTF_8)
-                        .jsonToObject(parameter.type.javaType.typeName))
+                    String(
+                        exchange
+                            .requestBody
+                            .readAllBytes(),
+                        StandardCharsets.UTF_8
+                    )
+                        .jsonToObject(parameter.type.javaType.typeName)
+                )
                 return@foreach
             }
         }
