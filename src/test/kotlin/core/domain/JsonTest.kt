@@ -2,12 +2,10 @@ package core.domain
 
 import api_for_test.entities.User
 import core.enums.StatusCode
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import shared.BaseTest
 
-class JsonTest {
-    private infix fun Any.eq(expected: Any?) = assertEquals(expected, this)
-
+class JsonTest: BaseTest() {
     private val user = User(1, "teste")
 
     private val json = Json(

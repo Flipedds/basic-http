@@ -1,14 +1,32 @@
 package core.di
 
-import core.di.injectables.TestClass
+import api_for_test.entities.User
+import api_for_test.interfaces.IUserRepository
+import api_for_test.interfaces.IUserService
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
+import shared.BaseTest
 
-class DIContainerTest {
+class DIContainerTest: BaseTest() {
     @Test
-    fun `should initialize a di container and get a bean for TestClass`() {
-        DIContainer.initializeDI()
-        val teste: TestClass = DIContainer.getBean(Class.forName("core.di.injectables.TestClass"))
-        assertEquals("testMethod", teste.testMethod())
+    fun `should get a bean for IUserRepository and return correct User object`() {
+        val teste: IUserRepository = DIContainer.getBean(
+            Class.forName("api_for_test.interfaces.IUserRepository"))
+        User(id = 1, name = "teste") eq teste.getUserById(1)
+    }
+
+    @Test
+    fun `should get a bean for IUserService and return correct User object`() {
+        val teste: IUserService = DIContainer.getBean(
+            Class.forName("api_for_test.interfaces.IUserService"))
+        User(id = 1, name = "teste") eq teste.getUserById(1)
+    }
+
+    companion object {
+        @JvmStatic
+        @BeforeAll
+        fun setup(){
+            DIContainer.initializeDI()
+        }
     }
 }

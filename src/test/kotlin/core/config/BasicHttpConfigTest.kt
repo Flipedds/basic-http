@@ -4,9 +4,10 @@ import io.restassured.RestAssured.*
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.*
+import shared.BaseTest
 
 
-class BasicHttpConfigTest {
+class BasicHttpConfigTest: BaseTest() {
     @Test
     fun `should get all users and return 200`() {
         get("/users/")

@@ -1,15 +1,14 @@
 package core.logs
 
 import core.enums.LogColors
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import shared.BaseTest
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class BasicLogTest {
-    private infix fun String.eq(expected: String) = assertEquals(expected, this)
+class BasicLogTest: BaseTest() {
 
     @Test
     fun `should show a green log`(){
