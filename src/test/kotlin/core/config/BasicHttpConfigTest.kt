@@ -29,7 +29,8 @@ class BasicHttpConfigTest: BaseTest() {
 
     @Test
     fun `should get a user and return 200`() {
-        get("/users?id=300")
+        given().auth().basic("user", "pass").`when`()
+            .get("/users?id=300")
             .then()
             .assertThat()
             .contentType("application/json")

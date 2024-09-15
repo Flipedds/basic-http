@@ -28,7 +28,7 @@ object BasicHttpConfig {
                         .append("| Options:\n")
                         .append("| server.host -> example: localhost\n")
                         .append("| server.port -> example: 3000\n")
-                        .append("| server.auth -> example: api.auth.ApiRestBasicAuthentication\n")
+                        .append("| server.auth -> example: core.auth.ServerDefaultBasicAuthentication\n")
                         .toString()
                 )
             }

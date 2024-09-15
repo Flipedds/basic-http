@@ -7,7 +7,7 @@ import kotlin.reflect.KParameter
 import kotlin.reflect.jvm.kotlinFunction
 
 @Suppress("UNCHECKED_CAST")
-class DependencyInjectionResolver<T>(
+class DependencyInjectionResolver<out T>(
     private val clazz: Class<*>) {
 
     @Throws(ClassNotFoundException::class)
