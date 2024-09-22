@@ -21,7 +21,7 @@ class DependencyInjectionResolverTest: BaseTest() {
 
         val getUser = Json(message="User found !!", code=200, data= user)
 
-        getUser eq instance.getUser("1")
+        getUser eq instance.getUser(1)
     }
 
     @Test

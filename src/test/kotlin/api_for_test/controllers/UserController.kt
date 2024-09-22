@@ -13,17 +13,11 @@ import core.interfaces.BaseController
 class UserController(private val userService: IUserService) : BaseController {
     @UseAuthentication
     @Mapping(path = "/users", method = RequestMethod.GET)
-    fun getUser(@QueryParam("id") id: String?): Json<User> {
-        if (id == null) {
-            return Json(
-                message = "Bad Request !! " + "Query parameter id is required !!",
-                statusCode = StatusCode.BadRequest
-            )
-        }
+    fun getUser(@QueryParam("id") id: Int?): Json<User> {
         return Json(
             message = "User found !!",
             statusCode = StatusCode.Ok,
-            data = userService.getUserById(id.toInt())
+            data = id?.let { userService.getUserById(it) }
         )
     }
 

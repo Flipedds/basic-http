@@ -53,8 +53,32 @@ class RequestHttpHandler(
                 return@foreach
             }
             if (parameter.hasAnnotation<QueryParam>()) {
+                val queryParam = exchange.requestURI.query?.toMapIfQuery()?.get(parameter.findAnnotation<QueryParam>()!!.key)
+
+                if(queryParam == null) {
+                    exchange.send(
+                        Json(
+                            message = "Bad Request !! " + "Query parameter ${parameter.name} is required !!",
+                            statusCode = StatusCode.BadRequest
+                        )
+                    )
+                    return
+                }
+
+                val parsedQueryParam = queryParam parseTo parameter.type.javaType.typeName
+
+                if(parsedQueryParam == null) {
+                    exchange.send(
+                        Json(
+                            message = "Bad Request !! " + "Query parameter ${parameter.name} is not in the correct format !!",
+                            statusCode = StatusCode.BadRequest
+                        )
+                    )
+                    return
+                }
+
                 listOfParameters.add(
-                    exchange.requestURI.query?.toMapIfQuery()?.get(parameter.findAnnotation<QueryParam>()!!.key)
+                    parsedQueryParam
                 )
                 return@foreach
             }

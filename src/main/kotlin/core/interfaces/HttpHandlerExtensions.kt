@@ -30,6 +30,18 @@ interface HttpHandlerExtensions {
         return result
     }
 
+    infix fun String.parseTo(typeForParse: String): Any? {
+        val parameterClass = Class.forName(typeForParse)
+        return when {
+            parameterClass.isAssignableFrom(Int::class.javaObjectType) -> this.toIntOrNull()
+            parameterClass.isAssignableFrom(Double::class.javaObjectType) -> this.toDoubleOrNull()
+            parameterClass.isAssignableFrom(Boolean::class.javaObjectType) -> this.toBooleanStrictOrNull()
+            parameterClass.isAssignableFrom(String::class.javaObjectType) -> this
+            else -> throw NotImplementedError()
+        }
+    }
+
+
     fun Json<Any>.toJsonString(): String {
         return Gson().toJson(this)
     }

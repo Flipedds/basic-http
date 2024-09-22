@@ -59,6 +59,28 @@ class BasicHttpConfigTest: BaseTest() {
             .body("data", equalTo(mapOf("id" to 200, "name" to "teste")))
     }
 
+    @Test
+    fun `should not get a user because id query param is not in request and return 400`() {
+        given().auth().basic("user", "pass").`when`()
+            .get("/users?identificador=300")
+            .then()
+            .assertThat()
+            .contentType("application/json")
+            .body("message", equalTo("Bad Request !! " + "Query parameter id is required !!"))
+            .statusCode(400)
+    }
+
+    @Test
+    fun `should not get a user because id query param is not in correct format and return 400`() {
+        given().auth().basic("user", "pass").`when`()
+            .get("/users?id=teste")
+            .then()
+            .assertThat()
+            .contentType("application/json")
+            .body("message", equalTo("Bad Request !! " + "Query parameter id is not in the correct format !!"))
+            .statusCode(400)
+    }
+
     companion object {
         @JvmStatic
         @BeforeAll
