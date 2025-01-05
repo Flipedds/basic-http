@@ -8,7 +8,7 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 dependencies {
-    implementation 'com.github.Flipedds:basic-http:96e8cb4'
+    implementation 'com.github.Flipedds:basic-http:439d316'
 }
 
 ````
