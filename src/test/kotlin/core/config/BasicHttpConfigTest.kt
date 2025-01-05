@@ -28,7 +28,7 @@ class BasicHttpConfigTest: BaseTest() {
     }
 
     @Test
-    fun `should get a user and return 200`() {
+    fun `should get a user With Query Params and return 200`() {
         given().auth().basic("user", "pass").`when`()
             .get("/users?id=300")
             .then()
@@ -42,6 +42,23 @@ class BasicHttpConfigTest: BaseTest() {
                 )
             )
     }
+
+    @Test
+    fun `should get a user With Path Parameter and return 200`() {
+        given().auth().basic("user", "pass").`when`()
+            .get("/users/get/200")
+            .then()
+            .assertThat()
+            .contentType("application/json")
+            .body("message", equalTo("User found !!"))
+            .statusCode(200)
+            .body(
+                "data", equalTo(
+                    mapOf("id" to 200, "name" to "teste")
+                )
+            )
+    }
+
 
     @Test
     fun `should post a user and return 201`() {

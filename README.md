@@ -40,6 +40,16 @@ import core.interfaces.BaseController
 @Controller
 class UserController(private val userService: IUserService) : BaseController {
     @UseAuthentication
+    @Mapping(path = "/users/get/{id}", method = RequestMethod.GET)
+    fun getUserById(@PathParam id: Int?): Json<User> {
+        return Json(
+                message = "User found !!",
+                statusCode = StatusCode.Ok,
+                data = id?.let { userService.getUserById(it) }
+        )
+    }
+    
+    @UseAuthentication
     @Mapping(path = "/users", method = RequestMethod.GET)
     fun getUser(@QueryParam("id") id: Int?): Json<User> {
         return Json(

@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
 import core.annotations.Body
 import core.annotations.Mapping
+import core.annotations.PathParam
 import core.annotations.QueryParam
 import core.domain.Json
 import core.enums.StatusCode
@@ -20,11 +21,14 @@ import kotlin.reflect.jvm.kotlinFunction
 @Suppress("UNCHECKED_CAST")
 class RequestHttpHandler(
     private val resource: BaseController,
-    private val method: Method) : HttpHandler, HttpHandlerExtensions {
+    private val method: Method,
+    private val methodHasPathParam: Boolean,
+    private val path: String
+) : HttpHandler, HttpHandlerExtensions {
     @Throws(IOException::class)
     override fun handle(exchange: HttpExchange) {
         val mapping = method.getAnnotation(Mapping::class.java)
-        if (exchange.requestURI.path != mapping.path) {
+        if (exchange.requestURI.path != mapping.path && !methodHasPathParam) {
             exchange.send(
                 Json(
                     message = "Resource Not Found !!",
@@ -95,6 +99,13 @@ class RequestHttpHandler(
                 )
                 return@foreach
             }
+
+            if(parameter.hasAnnotation<PathParam>()){
+                val pathParam = exchange.requestURI.path.replace(path, "") parseTo parameter.type.javaType.typeName
+                listOfParameters.add(pathParam)
+                return@foreach
+            }
+
         }
         exchange.send(
             method.invoke(
