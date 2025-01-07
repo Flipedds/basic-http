@@ -2,6 +2,7 @@ package core.resolvers
 
 import api_for_test.controllers.UserController
 import api_for_test.entities.User
+import core.authentication.JwtValidator
 import core.di.DIContainer
 import core.domain.Json
 import core.enums.StatusCode
@@ -11,6 +12,19 @@ import org.junit.jupiter.api.Test
 import shared.BaseTest
 
 class DependencyInjectionResolverTest: BaseTest() {
+    @Test
+    fun `should get a instance of a UserController and return correct authUser Json Object`() {
+        val instance: UserController = DependencyInjectionResolver<BaseController>(
+            Class.forName("api_for_test.controllers.UserController"))
+            .getInstance() as UserController
+
+        val authUser = instance.authUser()
+
+        authUser.message eq "User authenticated !!"
+        authUser.code eq 200
+        JwtValidator("SECRET_KEY").verifyToken(authUser.data as String) eq true
+    }
+
     @Test
     fun `should get a instance of a UserController and return correct getUser Json Object`() {
         val instance: UserController = DependencyInjectionResolver<BaseController>(
