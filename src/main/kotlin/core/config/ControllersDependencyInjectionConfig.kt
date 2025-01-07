@@ -8,10 +8,9 @@ import core.resolvers.DependencyInjectionResolver
 import io.github.classgraph.ClassGraph
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.ScanResult
-import java.util.Properties
 
 class ControllersDependencyInjectionConfig(
-    private val properties: Properties, private val server: HttpServer
+    private val server: HttpServer
 ) {
     fun withReflection() {
         /**
@@ -27,7 +26,7 @@ class ControllersDependencyInjectionConfig(
                 .forEach { classWithController: ClassInfo ->
                     val resource = DependencyInjectionResolver<BaseController>(
                         classWithController.loadClass()).getInstance()
-                    HttpContextConfig(properties = properties, server = server).createContexts(resource)
+                    HttpContextConfig(server = server).createContexts(resource)
                 }
         }
     }

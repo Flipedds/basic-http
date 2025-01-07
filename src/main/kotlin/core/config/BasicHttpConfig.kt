@@ -28,7 +28,6 @@ object BasicHttpConfig {
                         .append("| Options:\n")
                         .append("| server.host -> example: localhost\n")
                         .append("| server.port -> example: 3000\n")
-                        .append("| server.auth -> example: core.auth.ServerDefaultBasicAuthentication\n")
                         .toString()
                 )
             }
@@ -39,7 +38,7 @@ object BasicHttpConfig {
         val port = props.getProperty("server.port")?.toIntOrNull() ?: DEFAULT_PORT
         val address = InetSocketAddress(hostname, port)
         server = HttpServerProvider.provider().createHttpServer(address, 0).apply {
-            ControllersDependencyInjectionConfig(properties = props, server = this).withReflection()
+            ControllersDependencyInjectionConfig(server = this).withReflection()
             executor = Executors.newCachedThreadPool()
             BasicLog.getLogWithColorFor<BasicHttpConfig>(
                 LogColors.GREEN,

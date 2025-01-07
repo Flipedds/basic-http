@@ -4,6 +4,7 @@ import core.enums.RequestMethod
 import api_for_test.entities.User
 import api_for_test.interfaces.IUserService
 import core.annotations.*
+import core.authentication.JwtCreator
 import core.domain.Json
 import core.enums.StatusCode
 import core.interfaces.BaseController
@@ -11,6 +12,17 @@ import core.interfaces.BaseController
 
 @Controller
 class UserController(private val userService: IUserService) : BaseController {
+
+    @Mapping(path = "/users/auth", method = RequestMethod.POST)
+    fun authUser(): Json<String>{
+        return Json(
+            message = "User authenticated !!",
+            statusCode = StatusCode.Ok,
+            data = JwtCreator("SECRET_KEY").createJwt("user")
+        )
+    }
+
+
     @UseAuthentication
     @Mapping(path = "/users/get/{id}", method = RequestMethod.GET)
     fun getUserById(@PathParam id: Int?): Json<User> {

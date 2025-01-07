@@ -1,5 +1,6 @@
 package core.config
 
+import core.authentication.JwtCreator
 import io.restassured.RestAssured.*
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers.equalTo
@@ -8,6 +9,20 @@ import shared.BaseTest
 
 
 class BasicHttpConfigTest: BaseTest() {
+    @Test
+    fun `should auth a user and return 200`() {
+        given()
+            .contentType(ContentType.JSON)
+            .`when`()
+            .post("/users/auth")
+            .then()
+            .assertThat()
+            .contentType("application/json")
+            .statusCode(200)
+            .body("message", equalTo("User authenticated !!"))
+            .body("code", equalTo(200))
+    }
+
     @Test
     fun `should get all users and return 200`() {
         get("/users/")
@@ -29,7 +44,7 @@ class BasicHttpConfigTest: BaseTest() {
 
     @Test
     fun `should get a user With Query Params and return 200`() {
-        given().auth().basic("user", "pass").`when`()
+        given().header("Authorization", "Bearer $jwt").`when`()
             .get("/users?id=300")
             .then()
             .assertThat()
@@ -45,7 +60,7 @@ class BasicHttpConfigTest: BaseTest() {
 
     @Test
     fun `should get a user With Path Parameter and return 200`() {
-        given().auth().basic("user", "pass").`when`()
+        given().header("Authorization", "Bearer $jwt").`when`()
             .get("/users/get/200")
             .then()
             .assertThat()
@@ -78,7 +93,7 @@ class BasicHttpConfigTest: BaseTest() {
 
     @Test
     fun `should not get a user because id query param is not in request and return 400`() {
-        given().auth().basic("user", "pass").`when`()
+        given().header("Authorization", "Bearer $jwt").`when`()
             .get("/users?identificador=300")
             .then()
             .assertThat()
@@ -89,7 +104,7 @@ class BasicHttpConfigTest: BaseTest() {
 
     @Test
     fun `should not get a user because id query param is not in correct format and return 400`() {
-        given().auth().basic("user", "pass").`when`()
+        given().header("Authorization", "Bearer $jwt").`when`()
             .get("/users?id=teste")
             .then()
             .assertThat()
@@ -99,11 +114,14 @@ class BasicHttpConfigTest: BaseTest() {
     }
 
     companion object {
+        private lateinit var jwt: String
+
         @JvmStatic
         @BeforeAll
         fun `before all`() {
             BasicHttpConfig.startServer()
             baseURI = "http://localhost:3000"
+            jwt = JwtCreator("SECRET_KEY").createJwt("teste")
         }
 
         @JvmStatic

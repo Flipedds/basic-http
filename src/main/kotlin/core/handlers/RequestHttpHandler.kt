@@ -2,10 +2,7 @@ package core.handlers
 
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
-import core.annotations.Body
-import core.annotations.Mapping
-import core.annotations.PathParam
-import core.annotations.QueryParam
+import core.annotations.*
 import core.domain.Json
 import core.enums.StatusCode
 import core.interfaces.BaseController
@@ -22,32 +19,10 @@ import kotlin.reflect.jvm.kotlinFunction
 class RequestHttpHandler(
     private val resource: BaseController,
     private val method: Method,
-    private val methodHasPathParam: Boolean,
     private val path: String
 ) : HttpHandler, HttpHandlerExtensions {
     @Throws(IOException::class)
     override fun handle(exchange: HttpExchange) {
-        val mapping = method.getAnnotation(Mapping::class.java)
-        if (exchange.requestURI.path != mapping.path && !methodHasPathParam) {
-            exchange.send(
-                Json(
-                    message = "Resource Not Found !!",
-                    statusCode = StatusCode.NotFound,
-                )
-            )
-            return
-        }
-
-        if (exchange.requestMethod != mapping.method.toString()) {
-            exchange.send(
-                Json(
-                    message = "Method not allowed !!",
-                    statusCode = StatusCode.NotAllowed
-                )
-            )
-            return
-        }
-
         val methodParameters = method.kotlinFunction?.parameters
         val listOfParameters = mutableListOf<Any?>()
 

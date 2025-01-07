@@ -13,6 +13,16 @@ dependencies {
 
 ````
 
+### Server config
+
+#### Add server.properties on main properties folder => src/main/resources/server.properties
+
+````properties
+server.host=localhost
+server.port=3000
+````
+
+
 ### Framework Initializer
 ````java
 import core.config.BasicHttpConfig
@@ -30,8 +40,11 @@ data class User(val id: Int, val name: String)
 ### Controller Definition
 
 ````java
-import core.annotations.*
 import core.enums.RequestMethod
+import api_for_test.entities.User
+import api_for_test.interfaces.IUserService
+import core.annotations.*
+import core.authentication.JwtCreator
 import core.domain.Json
 import core.enums.StatusCode
 import core.interfaces.BaseController
@@ -39,6 +52,15 @@ import core.interfaces.BaseController
 
 @Controller
 class UserController(private val userService: IUserService) : BaseController {
+    @Mapping(path = "/users/auth", method = RequestMethod.POST)
+    fun authUser(): Json<String>{
+        return Json(
+                message = "User authenticated !!",
+                statusCode = StatusCode.Ok,
+                data = JwtCreator("SECRET_KEY").createJwt("user")
+        )
+    }
+    
     @UseAuthentication
     @Mapping(path = "/users/get/{id}", method = RequestMethod.GET)
     fun getUserById(@PathParam id: Int?): Json<User> {
