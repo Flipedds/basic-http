@@ -21,6 +21,36 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    test {
+        def successCount = 0
+        def failureCount = 0
+        def skippedCount = 0
+
+
+        afterTest { desc, result ->
+            def output = "Class: ${desc.className}, Test: ${desc.name}, Status: ${result.resultType}"
+            println('\n' + output)
+
+            if (result.resultType == TestResult.ResultType.SUCCESS) {
+                successCount++
+            } else if (result.resultType == TestResult.ResultType.FAILURE) {
+                failureCount++
+            } else if (result.resultType == TestResult.ResultType.SKIPPED) {
+                skippedCount++
+            }
+        }
+
+        afterSuite { desc, result ->
+            if (desc.parent == null) {
+                println("\n===============================")
+                println("Total de Sucessos: ${successCount}")
+                println("Total de Falhas: ${failureCount}")
+                println("Total Ignorados: ${skippedCount}")
+                println("===============================\n")
+            }
+        }
+    }
+
 }
 kotlin {
     jvmToolchain(21)
