@@ -1,6 +1,43 @@
 ### BASIC-HTTP
 Basic implementation of a Back-End Web framework in Kotlin and Gradle
 
+### Annotations
+
+````java
+@Body -> @Body user: User
+@Controller -> @Controller class UserController
+@Injectable -> @Injectable interface IUserRepository
+@Mapping -> @Mapping(path = "/users/auth", method = RequestMethod.POST)
+@PathParam -> @PathParam id: Int?
+@QueryParam -> @QueryParam("id") id: Int?
+@UseAuthentication -> @UseAuthentication fun getUserById
+````
+
+### Supported Status Codes
+
+````java
+enum class StatusCode(val code: Int)
+    
+Ok(200)
+Created(201)
+Unauthorized(401)
+NotFound(404)
+NotAllowed(405)
+BadRequest(400)
+InternalServerError(500)
+````
+
+### Supported Request Methods
+
+````java
+enum class RequestMethod
+    
+GET
+POST
+PUT
+DELETE
+````
+
 ### Using with Gradle
 ````groove
 repositories {
