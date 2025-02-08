@@ -10,7 +10,29 @@ import core.interfaces.HttpHandlerExtensions
 import java.lang.reflect.Method
 
 class AuthenticationHandlerFilter(private val method: Method) : Filter(), HttpHandlerExtensions {
+    private const val SECRET_KEY: String = "SECRET_KEY"
+    private val props: Properties = Properties()
+
+    init {
+        runCatching {
+            FileInputStream("src/main/resources/server.properties")
+        }.onSuccess { props.load(it) }
+            .onFailure {
+                BasicLog.getLogWithColorFor<BasicHttpConfig>(
+                    LogColors.YELLOW,
+                    StringBuilder()
+                        .append("Using Server Auth Default Properties !\n")
+                        .append("| Add server.properties on main properties folder |\n")
+                        .append("| Options:\n")
+                        .append("| server.jwtkey -> example: SECRET_KEY\n")
+                        .toString()
+                )
+            }
+    }
+
     override fun doFilter(exchange: HttpExchange?, chain: Chain?) {
+        val secretKey = props.getProperty("server.jwtkey") ?: SECRET_KEY
+
         val useAuthentication = method.getAnnotation(UseAuthentication::class.java)
 
         useAuthentication?.let {
@@ -28,7 +50,7 @@ class AuthenticationHandlerFilter(private val method: Method) : Filter(), HttpHa
 
             val token: String = authHeader.removePrefix("Bearer ")
 
-            val validToken: Boolean = JwtValidator("SECRET_KEY").verifyToken(token)
+            val validToken: Boolean = JwtValidator(secretKey).verifyToken(token)
 
             if (!validToken) {
                 exchange.send(
