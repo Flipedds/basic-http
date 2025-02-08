@@ -4,13 +4,18 @@ import com.sun.net.httpserver.Filter
 import com.sun.net.httpserver.HttpExchange
 import core.annotations.UseAuthentication
 import core.authentication.JwtValidator
+import core.config.BasicHttpConfig
 import core.domain.Json
+import core.enums.LogColors
 import core.enums.StatusCode
 import core.interfaces.HttpHandlerExtensions
+import core.logs.BasicLog
+import java.io.FileInputStream
 import java.lang.reflect.Method
+import java.util.*
 
 class AuthenticationHandlerFilter(private val method: Method) : Filter(), HttpHandlerExtensions {
-    private const val SECRET_KEY: String = "SECRET_KEY"
+    private val secretKey: String = "SECRET_KEY"
     private val props: Properties = Properties()
 
     init {
@@ -31,7 +36,7 @@ class AuthenticationHandlerFilter(private val method: Method) : Filter(), HttpHa
     }
 
     override fun doFilter(exchange: HttpExchange?, chain: Chain?) {
-        val secretKey = props.getProperty("server.jwtkey") ?: SECRET_KEY
+        val secretKey = props.getProperty("server.jwtkey") ?: secretKey
 
         val useAuthentication = method.getAnnotation(UseAuthentication::class.java)
 
