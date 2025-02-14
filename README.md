@@ -1,42 +1,45 @@
-### BASIC-HTTP
-Basic implementation of a Back-End Web framework in Kotlin and Gradle
+<h1 align="center" style="font-weight: bold;">BASIC-HTTP 🌐</h1>
 
-### Annotations
+<p align="center">
+ <a href="#technologies">Technologies</a> • 
+<a href="#docs">Documentations</a> • 
+ <a href="#started">Getting Started</a> •
+ <a href="#colab">Collaborators</a> •
+ <a href="#contribute">Contribute</a>
+</p>
 
-````java
-@Body -> @Body user: User
-@Controller -> @Controller class UserController
-@Injectable -> @Injectable interface IUserRepository
-@Mapping -> @Mapping(path = "/users/auth", method = RequestMethod.POST)
-@PathParam -> @PathParam id: Int?
-@QueryParam -> @QueryParam("id") id: Int?
-@UseAuthentication -> @UseAuthentication fun getUserById
-````
+<p align="center">
+    <b>Basic implementation of a Back-End Web framework in Kotlin and Gradle
+</b>
+</p>
 
-### Supported Status Codes
+<h2 id="technologies">💻 Technologies</h2>
 
-````java
-enum class StatusCode(val code: Int)
-    
-Ok(200)
-Created(201)
-Unauthorized(401)
-NotFound(404)
-NotAllowed(405)
-BadRequest(400)
-InternalServerError(500)
-````
+- Kotlin
+- Gradle
 
-### Supported Request Methods
+<h2 id="docs">💻 Documentations</h2>
 
-````java
-enum class RequestMethod
-    
-GET
-POST
-PUT
-DELETE
-````
+<a href="basic-http.vercel.app">📚 Basic-http Web Framework documentation</a> <br>
+<a href="https://kotlinlang.org/">📚 Kotlin documentation</a> <br>
+<a href="https://gradle.org/">📚 Gradle documentation</a>
+
+<h2 id="started">🚀 Getting started</h2>
+
+<h3>Prerequisites</h3>
+
+- [Intellij](https://github.com/)
+- [Gradle 8 +](https://github.com)
+- [JDK 21 +](https://github.com)
+
+<h3>Cloning</h3>
+
+```bash
+git clone project-url
+cd project-name
+```
+
+<h3>Starting</h3>
 
 ### Using with Gradle
 ````groove
@@ -177,3 +180,32 @@ class UserRepository: IUserRepository {
     }
 }
 ````
+
+
+<h2 id="colab">🤝 Collaborators</h2>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/u/110608654?v=4" width="100px;" alt="Filipe André Profile Picture"/><br>
+        <sub>
+          <b>Filipe André</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+<h2 id="contribute">📫 Contribute</h2>
+
+1. `git clone project-url`
+2. `git checkout -b feature-name`
+3. Follow commit patterns
+4. Open a Pull Request explaining the problem solved or feature made, if exists, append screenshot of visual modifications and wait for the review!
+
+<h3>Documentations that might help</h3>
+
+[📝 How to create a Pull Request](https://www.atlassian.com/br/git/tutorials/making-a-pull-request)
+
+[💾 Commit pattern](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
