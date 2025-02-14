@@ -42,12 +42,14 @@ DELETE
 ````groove
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
-}
-dependencies {
-    implementation 'com.github.Flipedds:basic-http:df63a8a'
+    maven {
+        url = uri("https://maven.pkg.github.com/flipedds/basic-http")
+    }
 }
 
+dependencies {
+    implementation 'com.flipedds:basic-http:1.0-SNAPSHOT'
+}
 ````
 
 ### Server config
