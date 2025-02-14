@@ -4,6 +4,9 @@ import com.google.gson.Gson
 import com.sun.net.httpserver.HttpExchange
 import core.domain.Json
 
+/**
+ * Kotlin Extension functions for HttpHandler
+ */
 interface HttpHandlerExtensions {
     fun HttpExchange.send(json: Json<Any>) {
         val jsonString = json.toJsonString()

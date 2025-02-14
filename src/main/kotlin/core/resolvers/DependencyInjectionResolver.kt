@@ -6,6 +6,10 @@ import kotlin.jvm.Throws
 import kotlin.reflect.KParameter
 import kotlin.reflect.jvm.kotlinFunction
 
+/**
+ * DependencyInjectionResolver is a class that resolves dependencies for a given class
+ * @param clazz: Class<*> - The class to resolve dependencies for
+ */
 @Suppress("UNCHECKED_CAST")
 class DependencyInjectionResolver<out T>(
     private val clazz: Class<*>) {

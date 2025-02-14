@@ -2,6 +2,10 @@ package core.domain
 
 import core.enums.StatusCode
 
+/**
+ * This class is a generic class that wraps the response of the API.
+ * It contains the message, the status code and the data.
+ */
 data class Json<T>(
     val message: String,
     val code: Int,

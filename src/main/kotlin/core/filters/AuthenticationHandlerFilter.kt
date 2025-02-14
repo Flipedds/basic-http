@@ -14,6 +14,11 @@ import java.io.FileInputStream
 import java.lang.reflect.Method
 import java.util.*
 
+/**
+ * AuthenticationHandlerFilter
+ * Filter to handle authentication
+ * @param method: Method -> Method of the controller
+ */
 class AuthenticationHandlerFilter(private val method: Method) : Filter(), HttpHandlerExtensions {
     private val secretKey: String = "SECRET_KEY"
     private val props: Properties = Properties()

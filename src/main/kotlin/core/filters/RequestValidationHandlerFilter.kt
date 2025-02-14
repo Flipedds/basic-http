@@ -8,6 +8,16 @@ import core.enums.StatusCode
 import core.interfaces.HttpHandlerExtensions
 import java.lang.reflect.Method
 
+/**
+ * RequestValidationHandlerFilter class is a filter class that validates the request
+ * based on the method and path specified in the Mapping annotation.
+ * If the request method or path does not match the Mapping annotation, then it sends
+ * the appropriate response to the client.
+ *
+ * @property method: Method of the controller.
+ * @property methodHasPathParam: Boolean value that indicates if the method has a path parameter.
+ * @constructor Creates a RequestValidationHandlerFilter.
+ */
 class RequestValidationHandlerFilter(
     private val method: Method,
     private val methodHasPathParam: Boolean

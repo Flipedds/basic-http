@@ -9,6 +9,13 @@ import java.net.InetSocketAddress
 import java.util.*
 import java.util.concurrent.Executors
 
+/**
+ * Basic Http Config to start and stop the server
+ * @property server HttpServer Server instance to start and stop the server
+ * @property DEFAULT_PORT Int Default port
+ * @property DEFAULT_HOST String Default host
+ * @property props Properties instance
+ */
 object BasicHttpConfig {
     private lateinit var server: HttpServer
     private const val DEFAULT_PORT: Int = 3000

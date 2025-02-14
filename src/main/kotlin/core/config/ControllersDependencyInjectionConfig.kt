@@ -9,6 +9,13 @@ import io.github.classgraph.ClassGraph
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.ScanResult
 
+/**
+ * This class is responsible for the dependency injection of the controllers
+ * It scans all packages to get the classes with the @Controller annotation
+ * And for each class, it creates a new instance with the parameters injected
+ * And for each method in the class, it creates a http context to path and handler
+ * Based in the properties of the annotation
+ */
 class ControllersDependencyInjectionConfig(
     private val server: HttpServer
 ) {

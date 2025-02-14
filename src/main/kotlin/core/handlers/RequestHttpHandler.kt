@@ -15,6 +15,14 @@ import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.jvm.javaType
 import kotlin.reflect.jvm.kotlinFunction
 
+/**
+ * This class is responsible for handling the request and invoking the method of the controller
+ * that corresponds to the request.
+ *
+ * @param resource: The controller that contains the method to be invoked.
+ * @param method: The method to be invoked.
+ * @param path: The path of the request.
+ */
 @Suppress("UNCHECKED_CAST")
 class RequestHttpHandler(
     private val resource: BaseController,

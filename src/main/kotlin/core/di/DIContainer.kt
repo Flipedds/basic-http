@@ -9,6 +9,14 @@ import io.github.classgraph.ScanResult
 import java.lang.reflect.Constructor
 import kotlin.jvm.Throws
 
+/**
+ * This class is responsible for creating and managing dependency injection.
+ * It uses reflection to create beans and inject them into the classes that need them.
+ * It scans the project for classes annotated with @Injectable and creates beans for them.
+ * It also scans for classes that implement interfaces and creates beans for them.
+ * It stores the beans in a map and provides them when needed.
+ * It also logs the beans created.
+ */
 @Suppress("UNCHECKED_CAST")
 object DIContainer {
     private val beanMap: MutableMap<Class<*>, Any> = HashMap()

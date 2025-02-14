@@ -14,6 +14,11 @@ import java.lang.reflect.Method
 import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.jvm.kotlinFunction
 
+/**
+ * This class is responsible for creating the contexts for the HttpServer
+ * and adding the filters to the contexts.
+ * @param server: HttpServer - The server to create the contexts for.
+ */
 class HttpContextConfig(private val server: HttpServer) {
     fun createContexts(resource: BaseController) {
         resource.javaClass.methods.forEach loop@{ method: Method ->

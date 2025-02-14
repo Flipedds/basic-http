@@ -9,6 +9,10 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import kotlin.jvm.Throws
 
+/**
+ * PreRequestHandlerLogFilter class is a filter class that logs the request to the server
+ * before the request is handled by the server.
+ */
 class PreRequestHandlerLogFilter: Filter() {
     @Throws(IOException::class, IllegalArgumentException::class)
     override fun doFilter(exchange: HttpExchange?, chain: Chain?) {

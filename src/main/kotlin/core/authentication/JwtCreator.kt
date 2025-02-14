@@ -5,6 +5,10 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTCreationException
 import java.util.*
 
+/**
+ * Class to create a JWT token.
+ * @param secretKey The secret key to sign the token.
+ */
 class JwtCreator(private val secretKey: String) {
     fun createJwt(subject: String): String {
         try {
