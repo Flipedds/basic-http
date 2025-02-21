@@ -8,17 +8,19 @@ import core.authentication.JwtCreator
 import core.domain.Json
 import core.enums.StatusCode
 import core.interfaces.BaseController
+import core.interfaces.IJwtCreator
 
 
 @Controller
-class UserController(private val userService: IUserService) : BaseController {
+class UserController(private val userService: IUserService) : BaseController,
+    IJwtCreator by JwtCreator("SECRET_KEY") {
 
     @Mapping(path = "/users/auth", method = RequestMethod.POST)
     fun authUser(): Json<String>{
         return Json(
             message = "User authenticated !!",
             statusCode = StatusCode.Ok,
-            data = JwtCreator("SECRET_KEY").createJwt("user")
+            data = createJwt("user")
         )
     }
 
