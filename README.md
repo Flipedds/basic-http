@@ -20,7 +20,7 @@
 
 <h2 id="docs">💻 Documentations</h2>
 
-<a href="basic-http.vercel.app">📚 Basic-http Web Framework documentation</a> <br>
+<a href="https://basic-http.vercel.app/">📚 Basic-http Web Framework documentation</a> <br>
 <a href="https://kotlinlang.org/">📚 Kotlin documentation</a> <br>
 <a href="https://gradle.org/">📚 Gradle documentation</a>
 
