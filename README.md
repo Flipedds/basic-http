@@ -46,12 +46,16 @@ cd project-name
 repositories {
     mavenCentral()
     maven {
-        url = uri("https://maven.pkg.github.com/flipedds/basic-http")
-    }
+            url = uri("https://maven.pkg.github.com/flipedds/basic-http")
+            credentials {
+                username = "flipedds"
+                password = "a_token_for_read_packages_on_github_contact_me_for_it"
+            }
+        }
 }
 
 dependencies {
-    implementation 'com.flipedds:basic-http:1.0-SNAPSHOT'
+    implementation 'com.flipedds:basic-http:1.0'
 }
 ````
 
