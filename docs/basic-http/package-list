@@ -95,6 +95,8 @@ $dokka.location:core.interfaces/HttpHandlerExtensions/parseTo/kotlin.String#kotl
 $dokka.location:core.interfaces/HttpHandlerExtensions/send/com.sun.net.httpserver.HttpExchange#core.domain.Json[kotlin.Any]/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/send.html
 $dokka.location:core.interfaces/HttpHandlerExtensions/toJsonString/core.domain.Json[kotlin.Any]#/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/to-json-string.html
 $dokka.location:core.interfaces/HttpHandlerExtensions/toMapIfQuery/kotlin.String#/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/to-map-if-query.html
+$dokka.location:core.interfaces/IJwtCreator///PointingToDeclaration/basic-http/core.interfaces/-i-jwt-creator/index.html
+$dokka.location:core.interfaces/IJwtCreator/createJwt/#kotlin.String/PointingToDeclaration/basic-http/core.interfaces/-i-jwt-creator/create-jwt.html
 $dokka.location:core.logs////PointingToDeclaration/basic-http/core.logs/index.html
 $dokka.location:core.logs/BasicLog///PointingToDeclaration/basic-http/core.logs/-basic-log/index.html
 $dokka.location:core.logs/BasicLog/getLogWithColorFor/#core.enums.LogColors#kotlin.String/PointingToDeclaration/basic-http/core.logs/-basic-log/get-log-with-color-for.html
