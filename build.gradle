@@ -26,6 +26,7 @@ dependencies {
     implementation 'com.auth0:java-jwt:4.4.0'
     implementation 'io.github.classgraph:classgraph:4.8.174'
     runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.9.23"
+    implementation 'com.mysql:mysql-connector-j:9.2.0'
 }
 
 test {
