@@ -104,6 +104,17 @@ $dokka.location:core.resolvers////PointingToDeclaration/basic-http/core.resolve
 $dokka.location:core.resolvers/DependencyInjectionResolver///PointingToDeclaration/basic-http/core.resolvers/-dependency-injection-resolver/index.html
 $dokka.location:core.resolvers/DependencyInjectionResolver/DependencyInjectionResolver/#java.lang.Class[*]/PointingToDeclaration/basic-http/core.resolvers/-dependency-injection-resolver/-dependency-injection-resolver.html
 $dokka.location:core.resolvers/DependencyInjectionResolver/getInstance/#/PointingToDeclaration/basic-http/core.resolvers/-dependency-injection-resolver/get-instance.html
+$dokka.location:database.annotations////PointingToDeclaration/basic-http/database.annotations/index.html
+$dokka.location:database.annotations/Column///PointingToDeclaration/basic-http/database.annotations/-column/index.html
+$dokka.location:database.annotations/Column/name/#/PointingToDeclaration/basic-http/database.annotations/-column/name.html
+$dokka.location:database.annotations/Table///PointingToDeclaration/basic-http/database.annotations/-table/index.html
+$dokka.location:database.annotations/Table/name/#/PointingToDeclaration/basic-http/database.annotations/-table/name.html
+$dokka.location:database.config////PointingToDeclaration/basic-http/database.config/index.html
+$dokka.location:database.config/BasicOrm///PointingToDeclaration/basic-http/database.config/-basic-orm/index.html
+$dokka.location:database.config/BasicOrm/BasicOrm/#/PointingToDeclaration/basic-http/database.config/-basic-orm/-basic-orm.html
+$dokka.location:database.config/BasicOrm/connection/#/PointingToDeclaration/basic-http/database.config/-basic-orm/connection.html
+$dokka.location:database.config/BasicOrm/findAll/#/PointingToDeclaration/basic-http/database.config/-basic-orm/find-all.html
+$dokka.location:database.config/BasicOrm/insert/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.config/-basic-orm/insert.html
 core.annotations
 core.authentication
 core.config
@@ -115,3 +126,5 @@ core.handlers
 core.interfaces
 core.logs
 core.resolvers
+database.annotations
+database.config

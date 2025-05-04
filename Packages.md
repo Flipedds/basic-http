@@ -33,3 +33,9 @@ Contains Framework Logs.
 
 # Package core.resolvers
 Contains Framework Resolvers.
+
+# Package database.annotations
+Contains Framework Database orm annotations.
+
+# Package database.config
+Contains Framework Orm configurations.
