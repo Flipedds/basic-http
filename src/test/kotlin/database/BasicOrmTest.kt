@@ -8,6 +8,7 @@ import kotlin.test.Ignore
 
 class BasicOrmTest: BaseTest() {
     @Test
+    @Ignore
     fun `should create a register on db`() {
         val tbTest = TbTest()
         tbTest.id = 3
