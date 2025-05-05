@@ -10,7 +10,7 @@ import kotlin.test.Ignore
 
 class BasicOrmTest : BaseTest() {
     @Test
-    @Ignore
+    @Ignore // for local test comment this line
     fun `should create a register on db`() {
         val tbTest = TbTest()
         tbTest.id = 10
@@ -21,7 +21,7 @@ class BasicOrmTest : BaseTest() {
     }
 
     @Test
-    @Ignore
+    @Ignore // for local test comment this line
     fun `should return all registers on db`() {
         val tbTestOrm = TbTestOrm()
         val findAll = tbTestOrm.findAll()
@@ -29,7 +29,7 @@ class BasicOrmTest : BaseTest() {
     }
 
     @Test
-    @Ignore
+    @Ignore // for local test comment this line
     fun `should get a bean for ITbTestOrm and return a list of test`() {
         val tbTestOrm: ITbTestOrm = DIContainer.getBean(
             Class.forName("entities_for_test.ITbTestOrm")
