@@ -186,6 +186,49 @@ class UserRepository: IUserRepository {
 }
 ````
 
+### Orm Config
+
+#### Add server.properties on main properties folder => src/main/resources/server.properties
+
+````properties
+database.url=jdbc:mysql://localhost:3306/database_name
+database.username=root
+database.password=root
+````
+
+
+### Orm Use Definition
+````java
+import core.annotations.Injectable
+import database.interfaces.IBasicOrm
+import database.annotations.Column
+import database.annotations.Id
+import database.annotations.Table
+import database.config.BasicOrm
+import database.enums.GeneratedBy
+        
+// entity class of orm
+@Table(name = "tb_test")
+class TbTest {
+    @Id(GeneratedBy.APPLICATION)
+    @Column(name = "id")
+    var id: Int = 0
+
+    @Column(name = "name")
+    var name: String = ""
+
+    override fun toString(): String {
+        return "TbTest(id=$id, name='$name')"
+    }
+}
+
+// controller injectable
+@Injectable
+interface ITbTestOrm: IBasicOrm<TbTest>
+
+// controller injectable implementation
+class TbTestOrm: BasicOrm<TbTest>(TbTest::class), ITbTestOrm
+````
 
 <h2 id="colab">🤝 Collaborators</h2>
 

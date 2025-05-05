@@ -3,12 +3,15 @@ package database.config
 import core.enums.LogColors
 import core.logs.BasicLog
 import database.annotations.Column
+import database.annotations.Id
 import database.annotations.Table
+import database.enums.GeneratedBy
 import java.io.FileInputStream
 import java.lang.reflect.Field
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.Properties
+import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 
 /**
@@ -18,8 +21,11 @@ import kotlin.reflect.full.findAnnotation
  * @property password The database password.
  * @property connection The database connection.
  * @property props The properties file for database configuration.
+ * @param T The type of the entity.
+ * @constructor Accepts a KClass of the entity type.
  */
-abstract class BasicOrm<T : Any> {
+abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
+
     private var url: String
     private var username: String
     private var password: String
@@ -34,13 +40,10 @@ abstract class BasicOrm<T : Any> {
         }.onFailure {
             BasicLog.getLogWithColorFor<(Any)>(
                 LogColors.YELLOW,
-                StringBuilder()
-                    .append("Using Database Default Properties !\n")
-                    .append("| Add server.properties on main properties folder |\n")
-                    .append("| Options:\n")
+                StringBuilder().append("Using Database Default Properties !\n")
+                    .append("| Add server.properties on main properties folder |\n").append("| Options:\n")
                     .append("| database.url -> example: jdbc:mysql://localhost:3306/your_database\n")
-                    .append("| database.username -> example: root\n")
-                    .append("| database.password -> example: root\n")
+                    .append("| database.username -> example: root\n").append("| database.password -> example: root\n")
                     .toString()
             )
         }
@@ -78,6 +81,12 @@ abstract class BasicOrm<T : Any> {
             fields.forEach { field ->
                 val name = field.getAnnotation(Column::class.java)?.name
 
+                field.getAnnotation(Id::class.java)?.let {
+                    if (it.type == GeneratedBy.AUT0_INCREMENT) {
+                        return@forEach
+                    }
+                }
+
                 if (name != null) {
                     query.append(name)
                     if (field != fields.last()) {
@@ -89,13 +98,20 @@ abstract class BasicOrm<T : Any> {
             query.append(") VALUES (")
 
             fields.forEach { field ->
+                field.getAnnotation(Id::class.java)?.let {
+                    if (it.type == GeneratedBy.AUT0_INCREMENT) {
+                        return@forEach
+                    }
+                }
+
                 field.isAccessible = true
                 val value = field.get(data)
 
-                if (value is String) {
-                    query.append("'$value'")
-                } else {
-                    query.append(value)
+                when (field.type) {
+                    Int::class.java -> query.append(value)
+                    String::class.java -> query.append("'$value'")
+                    Boolean::class.java -> query.append(if (value as Boolean) 1 else 0)
+                    else -> throw IllegalArgumentException("Unsupported data type: ${field.type}")
                 }
 
                 if (field != fields.last()) {
@@ -114,10 +130,7 @@ abstract class BasicOrm<T : Any> {
         } catch (e: Exception) {
             BasicLog.getLogWithColorFor<BasicOrm<T>>(
                 LogColors.RED,
-                StringBuilder()
-                    .append("Error inserting data: ${e.message}\n")
-                    .append("Query: $query")
-                    .toString()
+                StringBuilder().append("Error inserting data: ${e.message}\n").append("Query: $query").toString()
             )
         }
     }
@@ -127,14 +140,14 @@ abstract class BasicOrm<T : Any> {
      * @return A list of records.
      * @throws IllegalArgumentException if the class is not annotated with @Table.
      */
-    inline fun <reified T : Any> findAll(): MutableList<T> {
+    fun findAll(): MutableList<T> {
         val query: StringBuilder = StringBuilder()
 
         try {
-            val tableName: String? = T::class.findAnnotation<Table>()?.name
+            val tableName: String? = entityClass.findAnnotation<Table>()?.name
 
             if (tableName == null) {
-                throw IllegalArgumentException("Class ${T::class.simpleName} is not annotated with @Table")
+                throw IllegalArgumentException("Class ${entityClass.simpleName} is not annotated with @Table")
             }
 
             query.append("SELECT * FROM $tableName;")
@@ -150,8 +163,8 @@ abstract class BasicOrm<T : Any> {
             val list: MutableList<T> = mutableListOf()
 
             while (resultSet.next()) {
-                val obj = T::class.java.getDeclaredConstructor().newInstance()
-                val fields: Array<Field> = T::class.java.declaredFields
+                val obj = entityClass.java.getDeclaredConstructor().newInstance()
+                val fields: Array<Field> = entityClass.java.declaredFields
 
                 // Iterate over the fields and set their values from the result set
                 fields.forEach { field ->
@@ -171,10 +184,7 @@ abstract class BasicOrm<T : Any> {
         } catch (e: Exception) {
             BasicLog.getLogWithColorFor<BasicOrm<T>>(
                 LogColors.RED,
-                StringBuilder()
-                    .append("Error finding all records: ${e.message}\n")
-                    .append("Query: $query")
-                    .toString()
+                StringBuilder().append("Error finding all records: ${e.message}\n").append("Query: $query").toString()
             )
             return mutableListOf()
         }
