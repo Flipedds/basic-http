@@ -21,7 +21,7 @@ class TbTest {
         return "TbTest(id=$id, name='$name')"
     }
 }
-//@Injectable
+//@Injectable -> for local test uncomment this line
 interface ITbTestOrm: IBasicOrm<TbTest>
 
 class TbTestOrm: BasicOrm<TbTest>(TbTest::class), ITbTestOrm
