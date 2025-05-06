@@ -39,4 +39,33 @@ class BasicOrmTest : BaseTest() {
         val listIsEmpty = list.isEmpty()
         listIsEmpty shouldBe false
     }
+
+    @Test
+    @Ignore // for local test comment this line
+    fun `should delete a record on db`() {
+        val tbTest = TbTest()
+        tbTest.id = 1
+        tbTest.name = "test"
+
+        val tbTestOrm = TbTestOrm()
+        tbTestOrm.deleteOne(tbTest)
+    }
+
+    @Test
+    @Ignore // for local test comment this line
+    fun `should update a record on db`() {
+        val tbTest = TbTest()
+        tbTest.id = 3
+        tbTest.name = "test update"
+
+        val tbTestOrm = TbTestOrm()
+        tbTestOrm.updateOne(tbTest)
+    }
+
+    @Test
+    @Ignore // for local test comment this line
+    fun `should close a db connection`() {
+        val tbTestOrm = TbTestOrm()
+        tbTestOrm.closeConnection()
+    }
 }

@@ -114,10 +114,13 @@ $dokka.location:database.annotations/Table/name/#/PointingToDeclaration/basic-h
 $dokka.location:database.config////PointingToDeclaration/basic-http/database.config/index.html
 $dokka.location:database.config/BasicOrm///PointingToDeclaration/basic-http/database.config/-basic-orm/index.html
 $dokka.location:database.config/BasicOrm/BasicOrm/#kotlin.reflect.KClass[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/basic-http/database.config/-basic-orm/-basic-orm.html
+$dokka.location:database.config/BasicOrm/closeConnection/#/PointingToDeclaration/basic-http/database.config/-basic-orm/close-connection.html
 $dokka.location:database.config/BasicOrm/connection/#/PointingToDeclaration/basic-http/database.config/-basic-orm/connection.html
+$dokka.location:database.config/BasicOrm/deleteOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.config/-basic-orm/delete-one.html
 $dokka.location:database.config/BasicOrm/entityClass/#/PointingToDeclaration/basic-http/database.config/-basic-orm/entity-class.html
 $dokka.location:database.config/BasicOrm/findAll/#/PointingToDeclaration/basic-http/database.config/-basic-orm/find-all.html
 $dokka.location:database.config/BasicOrm/insert/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.config/-basic-orm/insert.html
+$dokka.location:database.config/BasicOrm/updateOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.config/-basic-orm/update-one.html
 $dokka.location:database.enums////PointingToDeclaration/basic-http/database.enums/index.html
 $dokka.location:database.enums/GeneratedBy.APPLICATION///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/database.enums/-generated-by/-a-p-p-l-i-c-a-t-i-o-n/index.html
 $dokka.location:database.enums/GeneratedBy.AUT0_INCREMENT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/database.enums/-generated-by/-a-u-t0_-i-n-c-r-e-m-e-n-t/index.html
@@ -125,10 +128,16 @@ $dokka.location:database.enums/GeneratedBy///PointingToDeclaration/basic-http/d
 $dokka.location:database.enums/GeneratedBy/entries/#/PointingToDeclaration/basic-http/database.enums/-generated-by/entries.html
 $dokka.location:database.enums/GeneratedBy/valueOf/#kotlin.String/PointingToDeclaration/basic-http/database.enums/-generated-by/value-of.html
 $dokka.location:database.enums/GeneratedBy/values/#/PointingToDeclaration/basic-http/database.enums/-generated-by/values.html
+$dokka.location:database.exceptions////PointingToDeclaration/basic-http/database.exceptions/index.html
+$dokka.location:database.exceptions/BasicOrmError///PointingToDeclaration/basic-http/database.exceptions/-basic-orm-error/index.html
+$dokka.location:database.exceptions/BasicOrmError/BasicOrmError/#kotlin.String/PointingToDeclaration/basic-http/database.exceptions/-basic-orm-error/-basic-orm-error.html
 $dokka.location:database.interfaces////PointingToDeclaration/basic-http/database.interfaces/index.html
 $dokka.location:database.interfaces/IBasicOrm///PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/index.html
+$dokka.location:database.interfaces/IBasicOrm/closeConnection/#/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/close-connection.html
+$dokka.location:database.interfaces/IBasicOrm/deleteOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/delete-one.html
 $dokka.location:database.interfaces/IBasicOrm/findAll/#/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/find-all.html
 $dokka.location:database.interfaces/IBasicOrm/insert/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/insert.html
+$dokka.location:database.interfaces/IBasicOrm/updateOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/update-one.html
 core.annotations
 core.authentication
 core.config
@@ -143,4 +152,5 @@ core.resolvers
 database.annotations
 database.config
 database.enums
+database.exceptions
 database.interfaces
