@@ -4,6 +4,7 @@ import core.di.DIContainer
 import entities_for_test.ITbTestOrm
 import entities_for_test.TbTestOrm
 import entities_for_test.TbTest
+import entities_for_test.TbUser
 import org.junit.jupiter.api.Test
 import shared.BaseTest
 import kotlin.test.Ignore
@@ -15,6 +16,7 @@ class BasicOrmTest : BaseTest() {
         val tbTest = TbTest()
         tbTest.id = 10
         tbTest.name = "test"
+        tbTest.user = TbUser(1,"test", "", 20)
 
         val tbTestOrm = TbTestOrm()
         tbTestOrm.insert(tbTest)
@@ -57,6 +59,7 @@ class BasicOrmTest : BaseTest() {
         val tbTest = TbTest()
         tbTest.id = 3
         tbTest.name = "test update"
+        tbTest.user = TbUser(2,"test", "", 20)
 
         val tbTestOrm = TbTestOrm()
         tbTestOrm.updateOne(tbTest)

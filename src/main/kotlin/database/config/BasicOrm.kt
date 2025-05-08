@@ -4,6 +4,7 @@ import core.enums.LogColors
 import core.logs.BasicLog
 import database.annotations.Column
 import database.annotations.Id
+import database.annotations.JoinColumn
 import database.annotations.Table
 import database.enums.GeneratedBy
 import database.exceptions.BasicOrmError
@@ -86,19 +87,29 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
             query.append("INSERT INTO $tableName (")
 
             fields.forEach { field ->
-                val name = field.getAnnotation(Column::class.java)?.name
-
                 field.getAnnotation(Id::class.java)?.let {
                     if (it.type == GeneratedBy.AUT0_INCREMENT) {
                         return@forEach
                     }
                 }
 
-                if (name != null) {
-                    query.append(name)
+                val entityColumnName = field.getAnnotation(Column::class.java)?.name
+
+                if (entityColumnName != null) {
+                    query.append(entityColumnName)
                     if (field != fields.last()) {
                         query.append(", ")
                     }
+                    return@forEach
+                }
+
+                val entityJoinColumnName = field.getAnnotation(JoinColumn::class.java)?.name
+                if (entityJoinColumnName != null) {
+                    query.append(entityJoinColumnName)
+                    if (field != fields.last()) {
+                        query.append(", ")
+                    }
+                    return@forEach
                 }
             }
 
@@ -118,7 +129,22 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                     Int::class.java -> query.append(value)
                     String::class.java -> query.append("'$value'")
                     Boolean::class.java -> query.append(if (value as Boolean) 1 else 0)
-                    else -> throw IllegalArgumentException("Unsupported data type: ${field.type}")
+                    else -> if (field.getAnnotation(JoinColumn::class.java) != null) {
+                        val joinEntity = field.type
+
+                        joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                            ?.let { joinEntityIdField ->
+                                joinEntityIdField.isAccessible = true
+                                when (joinEntityIdField.type) {
+                                    Int::class.java -> query.append(joinEntityIdField.get(value))
+                                    String::class.java -> query.append("'${joinEntityIdField.get(value)}'")
+                                    Boolean::class.java -> query.append(if (joinEntityIdField.get(value) as Boolean) 1 else 0)
+                                    else -> throw IllegalArgumentException("Unsupported data type for join column: ${joinEntityIdField.type}")
+                                }
+                            }
+                    } else {
+                        throw IllegalArgumentException("Unsupported data type for insert: ${field.type}")
+                    }
                 }
 
                 if (field != fields.last()) {
@@ -183,19 +209,73 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
             val list: MutableList<T> = mutableListOf()
 
             while (resultSet.next()) {
-                val obj = entityClass.java.getDeclaredConstructor().newInstance()
-                val fields: Array<Field> = entityClass.java.declaredFields
+                val entityObj = entityClass.java.getDeclaredConstructor().newInstance()
+                val entityFields: Array<Field> = entityClass.java.declaredFields
 
                 // Iterate over the fields and set their values from the result set
-                fields.forEach { field ->
-                    field.isAccessible = true
-                    val name = field.getAnnotation(Column::class.java)?.name
-                    if (name != null) {
-                        val value = resultSet.getObject(name)
-                        field.set(obj, value)
+                entityFields.forEach { entityField ->
+                    entityField.isAccessible = true
+                    if (entityField.getAnnotation(Column::class.java) != null) {
+                        val entityFieldName = entityField.getAnnotation(Column::class.java)?.name
+                        if (entityFieldName != null) {
+                            val value = resultSet.getObject(entityFieldName)
+                            entityField.set(entityObj, value)
+                        }
+                    } else if (entityField.getAnnotation(JoinColumn::class.java) != null) {
+                        val joinFieldName = entityField.getAnnotation(JoinColumn::class.java)?.name
+                        val joinEntity = entityField.type
+
+                        joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                            ?.let { joinEntityIdField ->
+                                joinEntity.getAnnotation(Table::class.java)?.let { joinEntityTable ->
+                                    val joinEntityTableName = joinEntityTable.name
+                                    val joinEntityIdFieldName =
+                                        joinEntityIdField.getAnnotation(Column::class.java)?.name
+                                    if (joinEntityIdFieldName != null) {
+                                        query.clear()
+                                        query.append(
+                                            "SELECT * FROM $joinEntityTableName WHERE $joinEntityIdFieldName = ${
+                                                resultSet.getObject(
+                                                    joinFieldName
+                                                )
+                                            };"
+                                        )
+                                        BasicLog.getLogWithColorFor<BasicOrm<T>>(
+                                            LogColors.GREEN,
+                                            StringBuilder().append(query).toString()
+                                        )
+
+                                        val statement = connection.createStatement()
+
+                                        statement.executeQuery(query.toString())
+
+                                        val resultSet = statement.resultSet
+
+                                        if (resultSet.next()) {
+                                            val joinEntityObj = joinEntity.getDeclaredConstructor().newInstance()
+                                            val joinEntityFields: Array<Field> = joinEntity.declaredFields
+
+                                            joinEntityFields.forEach { joinColumnField ->
+                                                joinColumnField.isAccessible = true
+                                                if (joinColumnField.getAnnotation(Column::class.java) != null) {
+                                                    val joinColumnFieldName =
+                                                        joinColumnField.getAnnotation(Column::class.java)?.name
+                                                    if (joinColumnFieldName != null) {
+                                                        val value = resultSet.getObject(joinColumnFieldName)
+                                                        joinColumnField.set(joinEntityObj, value)
+                                                    }
+                                                }
+                                            }
+                                            entityField.set(entityObj, joinEntityObj)
+                                        } else {
+                                            entityField.set(entityObj, null)
+                                        }
+                                    }
+                                }
+                            }
                     }
                 }
-                list.add(obj)
+                list.add(entityObj)
             }
             resultSet.close()
             statement.close()
@@ -299,8 +379,9 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                     return@forEach
                 }
 
-                val name = field.getAnnotation(Column::class.java)?.name
                 field.isAccessible = true
+
+                val name = field.getAnnotation(Column::class.java)?.name
 
                 if (name != null) {
                     val value = field.get(entity)
@@ -314,6 +395,54 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                     if (field != fields.last()) {
                         query.append(", ")
                     }
+                    return@forEach
+                }
+
+                val joinColumnName = field.getAnnotation(JoinColumn::class.java)?.name
+                field.isAccessible = true
+
+                if (joinColumnName != null) {
+                    val value = field.get(entity)
+
+                    when (field.type) {
+                        Int::class.java -> query.append("$joinColumnName = $value")
+                        String::class.java -> query.append("$joinColumnName = '$value'")
+                        Boolean::class.java -> query.append("$joinColumnName = ${if (value as Boolean) 1 else 0}")
+                        else -> if (field.getAnnotation(JoinColumn::class.java) != null) {
+                            val joinEntity = field.type
+
+                            joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                                ?.let { joinEntityIdField ->
+                                    joinEntityIdField.isAccessible = true
+                                    when (joinEntityIdField.type) {
+                                        Int::class.java -> query.append("$joinColumnName = ${joinEntityIdField.get(value)}")
+                                        String::class.java -> query.append(
+                                            "$joinColumnName = '${
+                                                joinEntityIdField.get(
+                                                    value
+                                                )
+                                            }'"
+                                        )
+
+                                        Boolean::class.java -> query.append(
+                                            "$joinColumnName = ${
+                                                if (joinEntityIdField.get(
+                                                        value
+                                                    ) as Boolean
+                                                ) 1 else 0
+                                            }"
+                                        )
+                                        else -> throw IllegalArgumentException("Unsupported data type for join column: ${joinEntityIdField.type}")
+                                    }
+                                }
+                        } else {
+                            throw IllegalArgumentException("Unsupported data type for insert: ${field.type}")
+                        }
+                    }
+                    if (field != fields.last()) {
+                        query.append(", ")
+                    }
+                    return@forEach
                 }
             }
 

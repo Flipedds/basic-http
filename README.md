@@ -217,8 +217,11 @@ class TbTest {
     @Column(name = "name")
     var name: String = ""
 
+    @JoinColumn(name = "user_id", type = Relation.ManyToOne)
+    var user: TbUser? = null
+
     override fun toString(): String {
-        return "TbTest(id=$id, name='$name')"
+        return "TbTest(id=$id, name='$name', user=$user)"
     }
 }
 

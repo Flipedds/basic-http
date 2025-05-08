@@ -109,6 +109,9 @@ $dokka.location:database.annotations/Column///PointingToDeclaration/basic-http/
 $dokka.location:database.annotations/Column/name/#/PointingToDeclaration/basic-http/database.annotations/-column/name.html
 $dokka.location:database.annotations/Id///PointingToDeclaration/basic-http/database.annotations/-id/index.html
 $dokka.location:database.annotations/Id/type/#/PointingToDeclaration/basic-http/database.annotations/-id/type.html
+$dokka.location:database.annotations/JoinColumn///PointingToDeclaration/basic-http/database.annotations/-join-column/index.html
+$dokka.location:database.annotations/JoinColumn/name/#/PointingToDeclaration/basic-http/database.annotations/-join-column/name.html
+$dokka.location:database.annotations/JoinColumn/type/#/PointingToDeclaration/basic-http/database.annotations/-join-column/type.html
 $dokka.location:database.annotations/Table///PointingToDeclaration/basic-http/database.annotations/-table/index.html
 $dokka.location:database.annotations/Table/name/#/PointingToDeclaration/basic-http/database.annotations/-table/name.html
 $dokka.location:database.config////PointingToDeclaration/basic-http/database.config/index.html
@@ -128,6 +131,12 @@ $dokka.location:database.enums/GeneratedBy///PointingToDeclaration/basic-http/d
 $dokka.location:database.enums/GeneratedBy/entries/#/PointingToDeclaration/basic-http/database.enums/-generated-by/entries.html
 $dokka.location:database.enums/GeneratedBy/valueOf/#kotlin.String/PointingToDeclaration/basic-http/database.enums/-generated-by/value-of.html
 $dokka.location:database.enums/GeneratedBy/values/#/PointingToDeclaration/basic-http/database.enums/-generated-by/values.html
+$dokka.location:database.enums/Relation.ManyToOne///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/database.enums/-relation/-many-to-one/index.html
+$dokka.location:database.enums/Relation.OneToMany///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/database.enums/-relation/-one-to-many/index.html
+$dokka.location:database.enums/Relation///PointingToDeclaration/basic-http/database.enums/-relation/index.html
+$dokka.location:database.enums/Relation/entries/#/PointingToDeclaration/basic-http/database.enums/-relation/entries.html
+$dokka.location:database.enums/Relation/valueOf/#kotlin.String/PointingToDeclaration/basic-http/database.enums/-relation/value-of.html
+$dokka.location:database.enums/Relation/values/#/PointingToDeclaration/basic-http/database.enums/-relation/values.html
 $dokka.location:database.exceptions////PointingToDeclaration/basic-http/database.exceptions/index.html
 $dokka.location:database.exceptions/BasicOrmError///PointingToDeclaration/basic-http/database.exceptions/-basic-orm-error/index.html
 $dokka.location:database.exceptions/BasicOrmError/BasicOrmError/#kotlin.String/PointingToDeclaration/basic-http/database.exceptions/-basic-orm-error/-basic-orm-error.html
