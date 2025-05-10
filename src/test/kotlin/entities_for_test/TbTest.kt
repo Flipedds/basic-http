@@ -43,6 +43,8 @@ class TbUser {
         this.age = age
     }
 
+    constructor()
+
     @Id(GeneratedBy.AUT0_INCREMENT)
     @Column(name = "id")
     var id: Int = 0

@@ -11,6 +11,7 @@ import database.exceptions.BasicOrmError
 import java.io.FileInputStream
 import java.lang.reflect.Field
 import java.sql.Connection
+import java.sql.Date
 import java.sql.DriverManager
 import java.util.Properties
 import kotlin.reflect.KClass
@@ -129,6 +130,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                     Int::class.java -> query.append(value)
                     String::class.java -> query.append("'$value'")
                     Boolean::class.java -> query.append(if (value as Boolean) 1 else 0)
+                    Enum::class.java -> query.append("'${(value as Enum<*>).name}'")
+                    Date::class.java -> query.append("'${(value as Date).time}'")
                     else -> if (field.getAnnotation(JoinColumn::class.java) != null) {
                         val joinEntity = field.type
 
@@ -139,6 +142,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                                     Int::class.java -> query.append(joinEntityIdField.get(value))
                                     String::class.java -> query.append("'${joinEntityIdField.get(value)}'")
                                     Boolean::class.java -> query.append(if (joinEntityIdField.get(value) as Boolean) 1 else 0)
+                                    Enum::class.java -> query.append("'${(joinEntityIdField.get(value) as Enum<*>).name}'")
+                                    Date::class.java -> query.append("'${(joinEntityIdField.get(value) as Date).time}'")
                                     else -> throw IllegalArgumentException("Unsupported data type for join column: ${joinEntityIdField.type}")
                                 }
                             }
@@ -390,6 +395,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                         Int::class.java -> query.append("$name = $value")
                         String::class.java -> query.append("$name = '$value'")
                         Boolean::class.java -> query.append("$name = ${if (value as Boolean) 1 else 0}")
+                        Enum::class.java -> query.append("'${(value as Enum<*>).name}'")
+                        Date::class.java -> query.append("'${(value as Date).time}'")
                         else -> throw IllegalArgumentException("Unsupported data type for field column: ${field.type}")
                     }
                     if (field != fields.last()) {
@@ -408,6 +415,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                         Int::class.java -> query.append("$joinColumnName = $value")
                         String::class.java -> query.append("$joinColumnName = '$value'")
                         Boolean::class.java -> query.append("$joinColumnName = ${if (value as Boolean) 1 else 0}")
+                        Enum::class.java -> query.append("'${(value as Enum<*>).name}'")
+                        Date::class.java -> query.append("'${(value as Date).time}'")
                         else -> if (field.getAnnotation(JoinColumn::class.java) != null) {
                             val joinEntity = field.type
 

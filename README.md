@@ -42,7 +42,7 @@ cd project-name
 <h3>Starting</h3>
 
 ### Using with Gradle
-````groove
+````groovy
 repositories {
     mavenCentral()
     maven {
@@ -71,7 +71,7 @@ server.jwtkey=SECRET_KEY
 
 
 ### Framework Initializer
-````java
+````kotlin
 import core.config.BasicHttpConfig
 
 fun main() {
@@ -80,13 +80,13 @@ fun main() {
 ````
 
 ### Entity Definition
-````java
+````kotlin
 data class User(val id: Int, val name: String)
 ````
 
 ### Controller Definition
 
-````java
+````kotlin
 import core.enums.RequestMethod
 import api_for_test.entities.User
 import api_for_test.interfaces.IUserService
@@ -154,7 +154,7 @@ class UserController(private val userService: IUserService) : BaseController,
 ````
 
 ### Controller Injectables Definition
-````java
+````kotlin
 
 import api_for_test.interfaces.IUserRepository
 import api_for_test.interfaces.IUserService
@@ -198,7 +198,7 @@ database.password=root
 
 
 ### Orm Use Definition
-````java
+````kotlin
 import core.annotations.Injectable
 import database.interfaces.IBasicOrm
 import database.annotations.Column
@@ -207,9 +207,17 @@ import database.annotations.Table
 import database.config.BasicOrm
 import database.enums.GeneratedBy
         
-// entity class of orm
+// entity class of orm, required empty constructor
 @Table(name = "tb_test")
 class TbTest {
+    constructor(user: TbUser?, name: String, id: Int) {
+        this.user = user
+        this.name = name
+        this.id = id
+    }
+    
+    constructor()
+        
     @Id(GeneratedBy.APPLICATION)
     @Column(name = "id")
     var id: Int = 0
@@ -231,6 +239,16 @@ interface ITbTestOrm: IBasicOrm<TbTest>
 
 // controller injectable implementation
 class TbTestOrm: BasicOrm<TbTest>(TbTest::class), ITbTestOrm
+
+
+// orm use
+val tbTest = TbTest()
+tbTest.id = 10
+tbTest.name = "test"
+tbTest.user = TbUser(1,"test", "", 20)
+
+val tbTestOrm = TbTestOrm()
+tbTestOrm.insert(tbTest)
 ````
 
 <h2 id="colab">🤝 Collaborators</h2>
