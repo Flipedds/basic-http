@@ -39,3 +39,12 @@ Contains Framework Database orm annotations.
 
 # Package database.config
 Contains Framework Orm configurations.
+
+# Package database.enums
+Contains Framework Orm Enums.
+
+# Package database.exceptions
+Contains Framework Orm Exceptions.
+
+# Package database.interfaces
+Contains Framework Orm Interfaces (contracts).

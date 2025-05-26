@@ -7,6 +7,7 @@ package database.interfaces
 interface IBasicOrm<T : Any> {
     fun insert(entity: T)
     fun findAll(): MutableList<T>
+    fun findOne(id: Any): T?
     fun updateOne(entity: T)
     fun deleteOne(entity: T)
     fun closeConnection()

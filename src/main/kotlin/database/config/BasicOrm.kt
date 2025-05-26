@@ -300,6 +300,137 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
     }
 
     /**
+     * Finds a record by its identifier.
+     * @param id The identifier of the record.
+     * @return The record if found, null otherwise.
+     * @throws IllegalArgumentException if the class is not annotated with @Table.
+     * @throws BasicOrmError if there is an error executing the query.
+     */
+    @Throws(IllegalArgumentException::class, BasicOrmError::class)
+    fun findOne(id: Any): T? {
+        var entity: T? = null
+        val query: StringBuilder = StringBuilder()
+
+        try {
+            val tableName: String? = entityClass.findAnnotation<Table>()?.name
+
+            if (tableName == null) {
+                throw IllegalArgumentException("Class ${entityClass.simpleName} is not annotated with @Table")
+            }
+
+            val fields: Array<Field> = entityClass.java.declaredFields
+
+            val idColumn = fields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                ?: throw IllegalArgumentException("Class ${entityClass.simpleName} does not have an identifier field")
+
+            val fieldName = idColumn.getAnnotation(Column::class.java)?.name
+                ?: throw IllegalArgumentException("Identifier field ${idColumn.name} does not have a @Column annotation or not has name attribute")
+
+            val identifier = when (id) {
+                is Int -> id
+                is String -> "'$id'"
+                else -> throw IllegalArgumentException("Unsupported data type for identifier column: ${idColumn.type}")
+            }
+
+            query.append("SELECT * FROM $tableName WHERE $fieldName = $identifier LIMIT 1;")
+
+            BasicLog.getLogWithColorFor<BasicOrm<T>>(
+                LogColors.GREEN,
+                StringBuilder().append(query).toString()
+            )
+
+            val statement = connection.createStatement()
+
+            statement.executeQuery(query.toString())
+
+            val resultSet = statement.resultSet
+
+            while (resultSet.next()) {
+                val entityObj = entityClass.java.getDeclaredConstructor().newInstance()
+                val entityFields: Array<Field> = entityClass.java.declaredFields
+
+                // Iterate over the fields and set their values from the result set
+                entityFields.forEach { entityField ->
+                    entityField.isAccessible = true
+                    if (entityField.getAnnotation(Column::class.java) != null) {
+                        val entityFieldName = entityField.getAnnotation(Column::class.java)?.name
+                        if (entityFieldName != null) {
+                            val value = resultSet.getObject(entityFieldName)
+                            entityField.set(entityObj, value)
+                        }
+                    } else if (entityField.getAnnotation(JoinColumn::class.java) != null) {
+                        val joinFieldName = entityField.getAnnotation(JoinColumn::class.java)?.name
+                        val joinEntity = entityField.type
+
+                        joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                            ?.let { joinEntityIdField ->
+                                joinEntity.getAnnotation(Table::class.java)?.let { joinEntityTable ->
+                                    val joinEntityTableName = joinEntityTable.name
+                                    val joinEntityIdFieldName =
+                                        joinEntityIdField.getAnnotation(Column::class.java)?.name
+                                    if (joinEntityIdFieldName != null) {
+                                        query.clear()
+                                        query.append(
+                                            "SELECT * FROM $joinEntityTableName WHERE $joinEntityIdFieldName = ${
+                                                resultSet.getObject(
+                                                    joinFieldName
+                                                )
+                                            };"
+                                        )
+                                        BasicLog.getLogWithColorFor<BasicOrm<T>>(
+                                            LogColors.GREEN,
+                                            StringBuilder().append(query).toString()
+                                        )
+
+                                        val statement = connection.createStatement()
+
+                                        statement.executeQuery(query.toString())
+
+                                        val resultSet = statement.resultSet
+
+                                        if (resultSet.next()) {
+                                            val joinEntityObj = joinEntity.getDeclaredConstructor().newInstance()
+                                            val joinEntityFields: Array<Field> = joinEntity.declaredFields
+
+                                            joinEntityFields.forEach { joinColumnField ->
+                                                joinColumnField.isAccessible = true
+                                                if (joinColumnField.getAnnotation(Column::class.java) != null) {
+                                                    val joinColumnFieldName =
+                                                        joinColumnField.getAnnotation(Column::class.java)?.name
+                                                    if (joinColumnFieldName != null) {
+                                                        val value = resultSet.getObject(joinColumnFieldName)
+                                                        joinColumnField.set(joinEntityObj, value)
+                                                    }
+                                                }
+                                            }
+                                            entityField.set(entityObj, joinEntityObj)
+                                        } else {
+                                            entityField.set(entityObj, null)
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                }
+                entity = entityObj
+            }
+            resultSet.close()
+            statement.close()
+        } catch (e: Exception) {
+            val msg = StringBuilder()
+                .append("Error finding record by id: ${e.message}\n")
+                .append("Query: $query")
+                .toString()
+            BasicLog.getLogWithColorFor<BasicOrm<T>>(
+                LogColors.RED,
+                msg
+            )
+            throw BasicOrmError(msg)
+        }
+        return entity
+    }
+
+    /**
      * Delete a record from the database.
      * @param entity The object to be deleted.
      * @throws IllegalArgumentException if the class is not annotated with @Table.

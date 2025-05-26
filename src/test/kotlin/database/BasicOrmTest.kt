@@ -32,6 +32,34 @@ class BasicOrmTest : BaseTest() {
 
     @Test
     @Ignore // for local test comment this line
+    fun `should return one register on db`() {
+        val tbTestOrm = TbTestOrm()
+        val findOne = tbTestOrm.findOne(10)
+        findOne?.let {
+            findOne.id shouldBe 10
+            findOne.name shouldBe "test"
+        } ?: run {
+            println("Register not found")
+            1 eq 2 // This line is just to fail the test if a register is not found
+        }
+    }
+
+    @Test
+    @Ignore // for local test comment this line
+    fun `should not return one register on db`() {
+        val tbTestOrm = TbTestOrm()
+        val findOne = tbTestOrm.findOne(1000)
+
+        findOne?.let {
+            println("Register found: $it")
+            1 eq 2 // This line is just to fail the test if a register is found
+        } ?: run {
+            println("Register not found")
+        }
+    }
+
+    @Test
+    @Ignore // for local test comment this line
     fun `should get a bean for ITbTestOrm and return a list of test`() {
         val tbTestOrm: ITbTestOrm = DIContainer.getBean(
             Class.forName("entities_for_test.ITbTestOrm")

@@ -122,6 +122,7 @@ $dokka.location:database.config/BasicOrm/connection/#/PointingToDeclaration/bas
 $dokka.location:database.config/BasicOrm/deleteOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.config/-basic-orm/delete-one.html
 $dokka.location:database.config/BasicOrm/entityClass/#/PointingToDeclaration/basic-http/database.config/-basic-orm/entity-class.html
 $dokka.location:database.config/BasicOrm/findAll/#/PointingToDeclaration/basic-http/database.config/-basic-orm/find-all.html
+$dokka.location:database.config/BasicOrm/findOne/#kotlin.Any/PointingToDeclaration/basic-http/database.config/-basic-orm/find-one.html
 $dokka.location:database.config/BasicOrm/insert/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.config/-basic-orm/insert.html
 $dokka.location:database.config/BasicOrm/updateOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.config/-basic-orm/update-one.html
 $dokka.location:database.enums////PointingToDeclaration/basic-http/database.enums/index.html
@@ -145,6 +146,7 @@ $dokka.location:database.interfaces/IBasicOrm///PointingToDeclaration/basic-htt
 $dokka.location:database.interfaces/IBasicOrm/closeConnection/#/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/close-connection.html
 $dokka.location:database.interfaces/IBasicOrm/deleteOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/delete-one.html
 $dokka.location:database.interfaces/IBasicOrm/findAll/#/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/find-all.html
+$dokka.location:database.interfaces/IBasicOrm/findOne/#kotlin.Any/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/find-one.html
 $dokka.location:database.interfaces/IBasicOrm/insert/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/insert.html
 $dokka.location:database.interfaces/IBasicOrm/updateOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/update-one.html
 core.annotations
