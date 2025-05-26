@@ -55,7 +55,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.flipedds:basic-http:1.0'
+    implementation 'com.flipedds:basic-http:2.0'
 }
 ````
 
