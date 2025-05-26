@@ -197,6 +197,18 @@ database.password=root
 ````
 
 
+### Orm Methods
+````kotlin
+interface IBasicOrm<T : Any> {
+    fun insert(entity: T)
+    fun findAll(): MutableList<T>
+    fun findOne(id: Any): T?
+    fun updateOne(entity: T)
+    fun deleteOne(entity: T)
+    fun closeConnection()
+}
+````
+
 ### Orm Use Definition
 ````kotlin
 import core.annotations.Injectable
@@ -233,15 +245,26 @@ class TbTest {
     }
 }
 
-// controller injectable
+// injectable config
 @Injectable
 interface ITbTestOrm: IBasicOrm<TbTest>
 
-// controller injectable implementation
+// injectable implementation
 class TbTestOrm: BasicOrm<TbTest>(TbTest::class), ITbTestOrm
 
+// orm injectable use
+@Injectable
+interface ITbTestService {
+    fun getTbTestById(id: Int) : TbTest?
+}
 
-// orm use
+class TbTestService(private val tbTestOrm: ITbTestOrm): ITbTestService {
+    override fun getTbTestById(id: Int) : TbTest? {
+        return tbTestOrm.findOne(id)
+    }
+}
+
+// orm normal use, if you don't want to use injectable
 val tbTest = TbTest()
 tbTest.id = 10
 tbTest.name = "test"
