@@ -2,19 +2,23 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.9.23'
 }
 
-group = 'com.flipedds'
+group = 'com.example'
 version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
     maven {
+        name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/flipedds/basic-http")
+        credentials {
+            username = "flipedds"
+            password = "a_token_for_read_packages_on_github_contact_me_for_it"
+        }
     }
 }
 
 dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
-    implementation 'com.flipedds:basic-http:1.0-SNAPSHOT'
+    implementation 'com.flipedds:basic-http:2.0'
 }
 
 test {

@@ -1,8 +1,9 @@
-package api_for_test.services
+package com.example.services
 
-import api_for_test.entities.User
-import api_for_test.interfaces.IUserRepository
-import api_for_test.interfaces.IUserService
+import com.example.entities.User
+import com.example.interfaces.IUserRepository
+import com.example.interfaces.IUserService
+
 
 class UserService(private val userRepository: IUserRepository): IUserService {
     override fun getUserById(id: Int) : User {

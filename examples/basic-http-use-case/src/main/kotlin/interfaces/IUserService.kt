@@ -1,6 +1,6 @@
-package api_for_test.interfaces
+package com.example.interfaces
 
-import api_for_test.entities.User
+import com.example.entities.User
 import core.annotations.Injectable
 
 @Injectable

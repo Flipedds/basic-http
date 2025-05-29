@@ -1,24 +1,42 @@
-package api_for_test.controllers
+package com.example.controllers
 
-import core.enums.RequestMethod
-import api_for_test.entities.User
-import api_for_test.interfaces.IUserService
-import core.annotations.*
+import com.example.dtos.TbTestDto
+import com.example.entities.User
+import com.example.interfaces.ITbTestService
+import com.example.interfaces.IUserService
+import core.annotations.Body
+import core.annotations.Controller
+import core.annotations.Mapping
+import core.annotations.PathParam
+import core.annotations.QueryParam
+import core.annotations.UseAuthentication
 import core.authentication.JwtCreator
 import core.domain.Json
+import core.enums.RequestMethod
 import core.enums.StatusCode
 import core.interfaces.BaseController
-
+import core.interfaces.IJwtCreator
 
 @Controller
-class UserController(private val userService: IUserService) : BaseController {
+class UserController(private val userService: IUserService,
+    private val tbTestService: ITbTestService) : BaseController,
+    IJwtCreator by JwtCreator("SECRET_KEY"){
 
     @Mapping(path = "/users/auth", method = RequestMethod.POST)
-    fun authUser(): Json<String>{
+    fun authUser(): Json<String> {
         return Json(
             message = "User authenticated !!",
             statusCode = StatusCode.Ok,
-            data = JwtCreator("SECRET_KEY").createJwt("user")
+            data = createJwt("user")
+        )
+    }
+
+    @Mapping(path = "/test/get/{id}", method = RequestMethod.GET)
+    fun getTestById(@PathParam id: Int?): Json<TbTestDto> {
+        return Json(
+            message = "Test found !!",
+            statusCode = StatusCode.Ok,
+            data = id?.let { tbTestService.getTbTestById(it) }
         )
     }
 

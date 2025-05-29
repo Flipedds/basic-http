@@ -1,4 +1,4 @@
-package com.flipedds
+package com.example
 
 import core.config.BasicHttpConfig
 

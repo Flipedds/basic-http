@@ -1,7 +1,7 @@
-package api_for_test.repositories
+package com.example.repositories
 
-import api_for_test.entities.User
-import api_for_test.interfaces.IUserRepository
+import com.example.entities.User
+import com.example.interfaces.IUserRepository
 
 class UserRepository: IUserRepository {
     override fun getUserById(id: Int) : User {
