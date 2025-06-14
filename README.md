@@ -3,6 +3,7 @@
 <p align="center">
  <a href="#technologies">Technologies</a> • 
 <a href="#docs">Documentations</a> • 
+   <a href="#diagram">Project diagram</a> • 
  <a href="#started">Getting Started</a> •
  <a href="#colab">Collaborators</a> •
  <a href="#contribute">Contribute</a>
@@ -23,6 +24,10 @@
 <a href="https://basic-http.vercel.app/">📚 Basic-http Web Framework documentation</a> <br>
 <a href="https://kotlinlang.org/">📚 Kotlin documentation</a> <br>
 <a href="https://gradle.org/">📚 Gradle documentation</a>
+
+<h2 id="diagram">Project diagram</h2>
+
+<img src= "https://github.com/user-attachments/assets/53d62b7f-554c-433b-bc10-662544dff858">
 
 <h2 id="started">🚀 Getting started</h2>
 
