@@ -77,7 +77,7 @@ server.jwtkey=SECRET_KEY
 
 ### Framework Initializer
 ````kotlin
-import core.config.BasicHttpConfig
+import core.server.config.BasicHttpConfig
 
 fun main() {
     BasicHttpConfig.startServer()
@@ -92,16 +92,6 @@ data class User(val id: Int, val name: String)
 ### Controller Definition
 
 ````kotlin
-import core.enums.RequestMethod
-import api_for_test.entities.User
-import api_for_test.interfaces.IUserService
-import core.annotations.*
-import core.authentication.JwtCreator
-import core.domain.Json
-import core.enums.StatusCode
-import core.interfaces.BaseController
-
-
 @Controller
 class UserController(private val userService: IUserService) : BaseController,
     IJwtCreator by JwtCreator("SECRET_KEY"){
@@ -160,11 +150,6 @@ class UserController(private val userService: IUserService) : BaseController,
 
 ### Controller Injectables Definition
 ````kotlin
-
-import api_for_test.interfaces.IUserRepository
-import api_for_test.interfaces.IUserService
-import core.annotations.Injectable
-
 @Injectable
 interface IUserService {
     fun getUserById(id: Int) : User
@@ -175,9 +160,6 @@ class UserService(private val userRepository: IUserRepository): IUserService {
         return userRepository.getUserById(id)
     }
 }
-
-import api_for_test.entities.User
-import api_for_test.interfaces.IUserRepository
 
 @Injectable
 interface IUserRepository {
@@ -216,14 +198,6 @@ interface IBasicOrm<T : Any> {
 
 ### Orm Use Definition
 ````kotlin
-import core.annotations.Injectable
-import database.interfaces.IBasicOrm
-import database.annotations.Column
-import database.annotations.Id
-import database.annotations.Table
-import database.config.BasicOrm
-import database.enums.GeneratedBy
-        
 // entity class of orm, required empty constructor
 @Table(name = "tb_test")
 class TbTest {

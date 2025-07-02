@@ -1,6 +1,6 @@
 package entities_for_test
 
-import core.annotations.Injectable
+import core.di.Injectable
 import database.interfaces.IBasicOrm
 import database.annotations.Column
 import database.annotations.Id

@@ -1,7 +1,7 @@
 package api_for_test.interfaces
 
 import api_for_test.entities.User
-import core.annotations.Injectable
+import core.di.Injectable
 
 @Injectable
 interface IUserRepository {

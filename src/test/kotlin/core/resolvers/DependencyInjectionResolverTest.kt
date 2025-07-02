@@ -2,11 +2,12 @@ package core.resolvers
 
 import api_for_test.controllers.UserController
 import api_for_test.entities.User
-import core.authentication.JwtValidator
+import core.domain.authentication.JwtValidator
 import core.di.DIContainer
-import core.domain.Json
-import core.enums.StatusCode
-import core.interfaces.BaseController
+import core.di.DependencyInjectionResolver
+import core.domain.response.Json
+import core.domain.response.StatusCode
+import core.domain.controller.BaseController
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import shared.BaseTest

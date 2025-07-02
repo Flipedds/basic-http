@@ -1,9 +1,10 @@
 package core.domain
 
 import api_for_test.entities.User
-import core.enums.StatusCode
+import core.domain.response.StatusCode
 import org.junit.jupiter.api.Test
 import shared.BaseTest
+import core.domain.response.Json
 
 class JsonTest: BaseTest() {
     private val user = User(1, "teste")

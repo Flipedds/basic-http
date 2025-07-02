@@ -2,6 +2,7 @@ package core.enums
 
 import org.junit.jupiter.api.Test
 import shared.BaseTest
+import core.domain.response.StatusCode
 
 class StatusCodeTest: BaseTest() {
     @Test

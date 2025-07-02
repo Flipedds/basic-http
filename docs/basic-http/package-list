@@ -1,109 +1,108 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:core.annotations////PointingToDeclaration/basic-http/core.annotations/index.html
-$dokka.location:core.annotations/Body///PointingToDeclaration/basic-http/core.annotations/-body/index.html
-$dokka.location:core.annotations/Controller///PointingToDeclaration/basic-http/core.annotations/-controller/index.html
-$dokka.location:core.annotations/Injectable///PointingToDeclaration/basic-http/core.annotations/-injectable/index.html
-$dokka.location:core.annotations/Mapping///PointingToDeclaration/basic-http/core.annotations/-mapping/index.html
-$dokka.location:core.annotations/Mapping/method/#/PointingToDeclaration/basic-http/core.annotations/-mapping/method.html
-$dokka.location:core.annotations/Mapping/path/#/PointingToDeclaration/basic-http/core.annotations/-mapping/path.html
-$dokka.location:core.annotations/PathParam///PointingToDeclaration/basic-http/core.annotations/-path-param/index.html
-$dokka.location:core.annotations/QueryParam///PointingToDeclaration/basic-http/core.annotations/-query-param/index.html
-$dokka.location:core.annotations/QueryParam/key/#/PointingToDeclaration/basic-http/core.annotations/-query-param/key.html
-$dokka.location:core.annotations/UseAuthentication///PointingToDeclaration/basic-http/core.annotations/-use-authentication/index.html
-$dokka.location:core.authentication////PointingToDeclaration/basic-http/core.authentication/index.html
-$dokka.location:core.authentication/JwtCreator///PointingToDeclaration/basic-http/core.authentication/-jwt-creator/index.html
-$dokka.location:core.authentication/JwtCreator/JwtCreator/#kotlin.String/PointingToDeclaration/basic-http/core.authentication/-jwt-creator/-jwt-creator.html
-$dokka.location:core.authentication/JwtCreator/createJwt/#kotlin.String/PointingToDeclaration/basic-http/core.authentication/-jwt-creator/create-jwt.html
-$dokka.location:core.authentication/JwtValidator///PointingToDeclaration/basic-http/core.authentication/-jwt-validator/index.html
-$dokka.location:core.authentication/JwtValidator/JwtValidator/#kotlin.String/PointingToDeclaration/basic-http/core.authentication/-jwt-validator/-jwt-validator.html
-$dokka.location:core.authentication/JwtValidator/verifyToken/#kotlin.String/PointingToDeclaration/basic-http/core.authentication/-jwt-validator/verify-token.html
-$dokka.location:core.config////PointingToDeclaration/basic-http/core.config/index.html
-$dokka.location:core.config/BasicHttpConfig///PointingToDeclaration/basic-http/core.config/-basic-http-config/index.html
-$dokka.location:core.config/BasicHttpConfig/startServer/#/PointingToDeclaration/basic-http/core.config/-basic-http-config/start-server.html
-$dokka.location:core.config/BasicHttpConfig/stopServer/#/PointingToDeclaration/basic-http/core.config/-basic-http-config/stop-server.html
-$dokka.location:core.config/ControllersDependencyInjectionConfig///PointingToDeclaration/basic-http/core.config/-controllers-dependency-injection-config/index.html
-$dokka.location:core.config/ControllersDependencyInjectionConfig/ControllersDependencyInjectionConfig/#com.sun.net.httpserver.HttpServer/PointingToDeclaration/basic-http/core.config/-controllers-dependency-injection-config/-controllers-dependency-injection-config.html
-$dokka.location:core.config/ControllersDependencyInjectionConfig/withReflection/#/PointingToDeclaration/basic-http/core.config/-controllers-dependency-injection-config/with-reflection.html
-$dokka.location:core.config/HttpContextConfig///PointingToDeclaration/basic-http/core.config/-http-context-config/index.html
-$dokka.location:core.config/HttpContextConfig/HttpContextConfig/#com.sun.net.httpserver.HttpServer/PointingToDeclaration/basic-http/core.config/-http-context-config/-http-context-config.html
-$dokka.location:core.config/HttpContextConfig/createContexts/#core.interfaces.BaseController/PointingToDeclaration/basic-http/core.config/-http-context-config/create-contexts.html
+$dokka.location:common////PointingToDeclaration/basic-http/common/index.html
+$dokka.location:common/BasicLog///PointingToDeclaration/basic-http/common/-basic-log/index.html
+$dokka.location:common/BasicLog/getLogWithColorFor/#common.LogColors#kotlin.String/PointingToDeclaration/basic-http/common/-basic-log/get-log-with-color-for.html
+$dokka.location:common/LogColors.BLUE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/common/-log-colors/-b-l-u-e/index.html
+$dokka.location:common/LogColors.GREEN///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/common/-log-colors/-g-r-e-e-n/index.html
+$dokka.location:common/LogColors.RED///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/common/-log-colors/-r-e-d/index.html
+$dokka.location:common/LogColors.RESET///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/common/-log-colors/-r-e-s-e-t/index.html
+$dokka.location:common/LogColors.YELLOW///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/common/-log-colors/-y-e-l-l-o-w/index.html
+$dokka.location:common/LogColors///PointingToDeclaration/basic-http/common/-log-colors/index.html
+$dokka.location:common/LogColors/ansiCode/#/PointingToDeclaration/basic-http/common/-log-colors/ansi-code.html
+$dokka.location:common/LogColors/entries/#/PointingToDeclaration/basic-http/common/-log-colors/entries.html
+$dokka.location:common/LogColors/valueOf/#kotlin.String/PointingToDeclaration/basic-http/common/-log-colors/value-of.html
+$dokka.location:common/LogColors/values/#/PointingToDeclaration/basic-http/common/-log-colors/values.html
 $dokka.location:core.di////PointingToDeclaration/basic-http/core.di/index.html
+$dokka.location:core.di/ControllersDependencyInjectionConfig///PointingToDeclaration/basic-http/core.di/-controllers-dependency-injection-config/index.html
+$dokka.location:core.di/ControllersDependencyInjectionConfig/ControllersDependencyInjectionConfig/#com.sun.net.httpserver.HttpServer/PointingToDeclaration/basic-http/core.di/-controllers-dependency-injection-config/-controllers-dependency-injection-config.html
+$dokka.location:core.di/ControllersDependencyInjectionConfig/withReflection/#/PointingToDeclaration/basic-http/core.di/-controllers-dependency-injection-config/with-reflection.html
 $dokka.location:core.di/DIContainer///PointingToDeclaration/basic-http/core.di/-d-i-container/index.html
 $dokka.location:core.di/DIContainer/getBean/#java.lang.Class[*]/PointingToDeclaration/basic-http/core.di/-d-i-container/get-bean.html
 $dokka.location:core.di/DIContainer/initializeDI/#/PointingToDeclaration/basic-http/core.di/-d-i-container/initialize-d-i.html
-$dokka.location:core.domain////PointingToDeclaration/basic-http/core.domain/index.html
-$dokka.location:core.domain/Json///PointingToDeclaration/basic-http/core.domain/-json/index.html
-$dokka.location:core.domain/Json/Json/#kotlin.String#core.enums.StatusCode#TypeParam(bounds=[kotlin.Any?])?/PointingToDeclaration/basic-http/core.domain/-json/-json.html
-$dokka.location:core.domain/Json/Json/#kotlin.String#kotlin.Int#TypeParam(bounds=[kotlin.Any?])?/PointingToDeclaration/basic-http/core.domain/-json/-json.html
-$dokka.location:core.domain/Json/code/#/PointingToDeclaration/basic-http/core.domain/-json/code.html
-$dokka.location:core.domain/Json/data/#/PointingToDeclaration/basic-http/core.domain/-json/data.html
-$dokka.location:core.domain/Json/message/#/PointingToDeclaration/basic-http/core.domain/-json/message.html
-$dokka.location:core.enums////PointingToDeclaration/basic-http/core.enums/index.html
-$dokka.location:core.enums/LogColors.BLUE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-log-colors/-b-l-u-e/index.html
-$dokka.location:core.enums/LogColors.GREEN///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-log-colors/-g-r-e-e-n/index.html
-$dokka.location:core.enums/LogColors.RED///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-log-colors/-r-e-d/index.html
-$dokka.location:core.enums/LogColors.RESET///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-log-colors/-r-e-s-e-t/index.html
-$dokka.location:core.enums/LogColors.YELLOW///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-log-colors/-y-e-l-l-o-w/index.html
-$dokka.location:core.enums/LogColors///PointingToDeclaration/basic-http/core.enums/-log-colors/index.html
-$dokka.location:core.enums/LogColors/ansiCode/#/PointingToDeclaration/basic-http/core.enums/-log-colors/ansi-code.html
-$dokka.location:core.enums/LogColors/entries/#/PointingToDeclaration/basic-http/core.enums/-log-colors/entries.html
-$dokka.location:core.enums/LogColors/valueOf/#kotlin.String/PointingToDeclaration/basic-http/core.enums/-log-colors/value-of.html
-$dokka.location:core.enums/LogColors/values/#/PointingToDeclaration/basic-http/core.enums/-log-colors/values.html
-$dokka.location:core.enums/RequestMethod.DELETE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-request-method/-d-e-l-e-t-e/index.html
-$dokka.location:core.enums/RequestMethod.GET///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-request-method/-g-e-t/index.html
-$dokka.location:core.enums/RequestMethod.POST///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-request-method/-p-o-s-t/index.html
-$dokka.location:core.enums/RequestMethod.PUT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-request-method/-p-u-t/index.html
-$dokka.location:core.enums/RequestMethod///PointingToDeclaration/basic-http/core.enums/-request-method/index.html
-$dokka.location:core.enums/RequestMethod/entries/#/PointingToDeclaration/basic-http/core.enums/-request-method/entries.html
-$dokka.location:core.enums/RequestMethod/valueOf/#kotlin.String/PointingToDeclaration/basic-http/core.enums/-request-method/value-of.html
-$dokka.location:core.enums/RequestMethod/values/#/PointingToDeclaration/basic-http/core.enums/-request-method/values.html
-$dokka.location:core.enums/StatusCode.BadRequest///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-status-code/-bad-request/index.html
-$dokka.location:core.enums/StatusCode.Created///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-status-code/-created/index.html
-$dokka.location:core.enums/StatusCode.InternalServerError///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-status-code/-internal-server-error/index.html
-$dokka.location:core.enums/StatusCode.NotAllowed///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-status-code/-not-allowed/index.html
-$dokka.location:core.enums/StatusCode.NotFound///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-status-code/-not-found/index.html
-$dokka.location:core.enums/StatusCode.Ok///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-status-code/-ok/index.html
-$dokka.location:core.enums/StatusCode.Unauthorized///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.enums/-status-code/-unauthorized/index.html
-$dokka.location:core.enums/StatusCode///PointingToDeclaration/basic-http/core.enums/-status-code/index.html
-$dokka.location:core.enums/StatusCode/code/#/PointingToDeclaration/basic-http/core.enums/-status-code/code.html
-$dokka.location:core.enums/StatusCode/entries/#/PointingToDeclaration/basic-http/core.enums/-status-code/entries.html
-$dokka.location:core.enums/StatusCode/valueOf/#kotlin.String/PointingToDeclaration/basic-http/core.enums/-status-code/value-of.html
-$dokka.location:core.enums/StatusCode/values/#/PointingToDeclaration/basic-http/core.enums/-status-code/values.html
-$dokka.location:core.filters////PointingToDeclaration/basic-http/core.filters/index.html
-$dokka.location:core.filters/AuthenticationHandlerFilter///PointingToDeclaration/basic-http/core.filters/-authentication-handler-filter/index.html
-$dokka.location:core.filters/AuthenticationHandlerFilter/AuthenticationHandlerFilter/#java.lang.reflect.Method/PointingToDeclaration/basic-http/core.filters/-authentication-handler-filter/-authentication-handler-filter.html
-$dokka.location:core.filters/AuthenticationHandlerFilter/description/#/PointingToDeclaration/basic-http/core.filters/-authentication-handler-filter/description.html
-$dokka.location:core.filters/AuthenticationHandlerFilter/doFilter/#com.sun.net.httpserver.HttpExchange?#com.sun.net.httpserver.Filter.Chain?/PointingToDeclaration/basic-http/core.filters/-authentication-handler-filter/do-filter.html
-$dokka.location:core.filters/PreRequestHandlerLogFilter///PointingToDeclaration/basic-http/core.filters/-pre-request-handler-log-filter/index.html
-$dokka.location:core.filters/PreRequestHandlerLogFilter/PreRequestHandlerLogFilter/#/PointingToDeclaration/basic-http/core.filters/-pre-request-handler-log-filter/-pre-request-handler-log-filter.html
-$dokka.location:core.filters/PreRequestHandlerLogFilter/description/#/PointingToDeclaration/basic-http/core.filters/-pre-request-handler-log-filter/description.html
-$dokka.location:core.filters/PreRequestHandlerLogFilter/doFilter/#com.sun.net.httpserver.HttpExchange?#com.sun.net.httpserver.Filter.Chain?/PointingToDeclaration/basic-http/core.filters/-pre-request-handler-log-filter/do-filter.html
-$dokka.location:core.filters/RequestValidationHandlerFilter///PointingToDeclaration/basic-http/core.filters/-request-validation-handler-filter/index.html
-$dokka.location:core.filters/RequestValidationHandlerFilter/RequestValidationHandlerFilter/#java.lang.reflect.Method#kotlin.Boolean/PointingToDeclaration/basic-http/core.filters/-request-validation-handler-filter/-request-validation-handler-filter.html
-$dokka.location:core.filters/RequestValidationHandlerFilter/description/#/PointingToDeclaration/basic-http/core.filters/-request-validation-handler-filter/description.html
-$dokka.location:core.filters/RequestValidationHandlerFilter/doFilter/#com.sun.net.httpserver.HttpExchange?#com.sun.net.httpserver.Filter.Chain?/PointingToDeclaration/basic-http/core.filters/-request-validation-handler-filter/do-filter.html
-$dokka.location:core.handlers////PointingToDeclaration/basic-http/core.handlers/index.html
-$dokka.location:core.handlers/RequestHttpHandler///PointingToDeclaration/basic-http/core.handlers/-request-http-handler/index.html
-$dokka.location:core.handlers/RequestHttpHandler/RequestHttpHandler/#core.interfaces.BaseController#java.lang.reflect.Method#kotlin.String/PointingToDeclaration/basic-http/core.handlers/-request-http-handler/-request-http-handler.html
-$dokka.location:core.handlers/RequestHttpHandler/handle/#com.sun.net.httpserver.HttpExchange/PointingToDeclaration/basic-http/core.handlers/-request-http-handler/handle.html
-$dokka.location:core.interfaces////PointingToDeclaration/basic-http/core.interfaces/index.html
-$dokka.location:core.interfaces/BaseController///PointingToDeclaration/basic-http/core.interfaces/-base-controller/index.html
-$dokka.location:core.interfaces/HttpHandlerExtensions///PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/index.html
-$dokka.location:core.interfaces/HttpHandlerExtensions/jsonToObject/kotlin.String#kotlin.String/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/json-to-object.html
-$dokka.location:core.interfaces/HttpHandlerExtensions/parseTo/kotlin.String#kotlin.String/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/parse-to.html
-$dokka.location:core.interfaces/HttpHandlerExtensions/send/com.sun.net.httpserver.HttpExchange#core.domain.Json[kotlin.Any]/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/send.html
-$dokka.location:core.interfaces/HttpHandlerExtensions/toJsonString/core.domain.Json[kotlin.Any]#/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/to-json-string.html
-$dokka.location:core.interfaces/HttpHandlerExtensions/toMapIfQuery/kotlin.String#/PointingToDeclaration/basic-http/core.interfaces/-http-handler-extensions/to-map-if-query.html
-$dokka.location:core.interfaces/IJwtCreator///PointingToDeclaration/basic-http/core.interfaces/-i-jwt-creator/index.html
-$dokka.location:core.interfaces/IJwtCreator/createJwt/#kotlin.String/PointingToDeclaration/basic-http/core.interfaces/-i-jwt-creator/create-jwt.html
-$dokka.location:core.logs////PointingToDeclaration/basic-http/core.logs/index.html
-$dokka.location:core.logs/BasicLog///PointingToDeclaration/basic-http/core.logs/-basic-log/index.html
-$dokka.location:core.logs/BasicLog/getLogWithColorFor/#core.enums.LogColors#kotlin.String/PointingToDeclaration/basic-http/core.logs/-basic-log/get-log-with-color-for.html
-$dokka.location:core.resolvers////PointingToDeclaration/basic-http/core.resolvers/index.html
-$dokka.location:core.resolvers/DependencyInjectionResolver///PointingToDeclaration/basic-http/core.resolvers/-dependency-injection-resolver/index.html
-$dokka.location:core.resolvers/DependencyInjectionResolver/DependencyInjectionResolver/#java.lang.Class[*]/PointingToDeclaration/basic-http/core.resolvers/-dependency-injection-resolver/-dependency-injection-resolver.html
-$dokka.location:core.resolvers/DependencyInjectionResolver/getInstance/#/PointingToDeclaration/basic-http/core.resolvers/-dependency-injection-resolver/get-instance.html
+$dokka.location:core.di/DependencyInjectionResolver///PointingToDeclaration/basic-http/core.di/-dependency-injection-resolver/index.html
+$dokka.location:core.di/DependencyInjectionResolver/DependencyInjectionResolver/#java.lang.Class[*]/PointingToDeclaration/basic-http/core.di/-dependency-injection-resolver/-dependency-injection-resolver.html
+$dokka.location:core.di/DependencyInjectionResolver/getInstance/#/PointingToDeclaration/basic-http/core.di/-dependency-injection-resolver/get-instance.html
+$dokka.location:core.di/Injectable///PointingToDeclaration/basic-http/core.di/-injectable/index.html
+$dokka.location:core.domain.authentication////PointingToDeclaration/basic-http/core.domain.authentication/index.html
+$dokka.location:core.domain.authentication/IJwtCreator///PointingToDeclaration/basic-http/core.domain.authentication/-i-jwt-creator/index.html
+$dokka.location:core.domain.authentication/IJwtCreator/createJwt/#kotlin.String/PointingToDeclaration/basic-http/core.domain.authentication/-i-jwt-creator/create-jwt.html
+$dokka.location:core.domain.authentication/JwtCreator///PointingToDeclaration/basic-http/core.domain.authentication/-jwt-creator/index.html
+$dokka.location:core.domain.authentication/JwtCreator/JwtCreator/#kotlin.String/PointingToDeclaration/basic-http/core.domain.authentication/-jwt-creator/-jwt-creator.html
+$dokka.location:core.domain.authentication/JwtCreator/createJwt/#kotlin.String/PointingToDeclaration/basic-http/core.domain.authentication/-jwt-creator/create-jwt.html
+$dokka.location:core.domain.authentication/JwtValidator///PointingToDeclaration/basic-http/core.domain.authentication/-jwt-validator/index.html
+$dokka.location:core.domain.authentication/JwtValidator/JwtValidator/#kotlin.String/PointingToDeclaration/basic-http/core.domain.authentication/-jwt-validator/-jwt-validator.html
+$dokka.location:core.domain.authentication/JwtValidator/verifyToken/#kotlin.String/PointingToDeclaration/basic-http/core.domain.authentication/-jwt-validator/verify-token.html
+$dokka.location:core.domain.authentication/UseAuthentication///PointingToDeclaration/basic-http/core.domain.authentication/-use-authentication/index.html
+$dokka.location:core.domain.controller////PointingToDeclaration/basic-http/core.domain.controller/index.html
+$dokka.location:core.domain.controller/BaseController///PointingToDeclaration/basic-http/core.domain.controller/-base-controller/index.html
+$dokka.location:core.domain.controller/Controller///PointingToDeclaration/basic-http/core.domain.controller/-controller/index.html
+$dokka.location:core.domain.request////PointingToDeclaration/basic-http/core.domain.request/index.html
+$dokka.location:core.domain.request/Body///PointingToDeclaration/basic-http/core.domain.request/-body/index.html
+$dokka.location:core.domain.request/Mapping///PointingToDeclaration/basic-http/core.domain.request/-mapping/index.html
+$dokka.location:core.domain.request/Mapping/method/#/PointingToDeclaration/basic-http/core.domain.request/-mapping/method.html
+$dokka.location:core.domain.request/Mapping/path/#/PointingToDeclaration/basic-http/core.domain.request/-mapping/path.html
+$dokka.location:core.domain.request/PathParam///PointingToDeclaration/basic-http/core.domain.request/-path-param/index.html
+$dokka.location:core.domain.request/QueryParam///PointingToDeclaration/basic-http/core.domain.request/-query-param/index.html
+$dokka.location:core.domain.request/QueryParam/key/#/PointingToDeclaration/basic-http/core.domain.request/-query-param/key.html
+$dokka.location:core.domain.request/RequestMethod.DELETE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.request/-request-method/-d-e-l-e-t-e/index.html
+$dokka.location:core.domain.request/RequestMethod.GET///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.request/-request-method/-g-e-t/index.html
+$dokka.location:core.domain.request/RequestMethod.POST///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.request/-request-method/-p-o-s-t/index.html
+$dokka.location:core.domain.request/RequestMethod.PUT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.request/-request-method/-p-u-t/index.html
+$dokka.location:core.domain.request/RequestMethod///PointingToDeclaration/basic-http/core.domain.request/-request-method/index.html
+$dokka.location:core.domain.request/RequestMethod/entries/#/PointingToDeclaration/basic-http/core.domain.request/-request-method/entries.html
+$dokka.location:core.domain.request/RequestMethod/valueOf/#kotlin.String/PointingToDeclaration/basic-http/core.domain.request/-request-method/value-of.html
+$dokka.location:core.domain.request/RequestMethod/values/#/PointingToDeclaration/basic-http/core.domain.request/-request-method/values.html
+$dokka.location:core.domain.response////PointingToDeclaration/basic-http/core.domain.response/index.html
+$dokka.location:core.domain.response/Json///PointingToDeclaration/basic-http/core.domain.response/-json/index.html
+$dokka.location:core.domain.response/Json/Json/#kotlin.String#core.domain.response.StatusCode#TypeParam(bounds=[kotlin.Any?])?/PointingToDeclaration/basic-http/core.domain.response/-json/-json.html
+$dokka.location:core.domain.response/Json/Json/#kotlin.String#kotlin.Int#TypeParam(bounds=[kotlin.Any?])?/PointingToDeclaration/basic-http/core.domain.response/-json/-json.html
+$dokka.location:core.domain.response/Json/code/#/PointingToDeclaration/basic-http/core.domain.response/-json/code.html
+$dokka.location:core.domain.response/Json/data/#/PointingToDeclaration/basic-http/core.domain.response/-json/data.html
+$dokka.location:core.domain.response/Json/message/#/PointingToDeclaration/basic-http/core.domain.response/-json/message.html
+$dokka.location:core.domain.response/StatusCode.BadRequest///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.response/-status-code/-bad-request/index.html
+$dokka.location:core.domain.response/StatusCode.Created///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.response/-status-code/-created/index.html
+$dokka.location:core.domain.response/StatusCode.InternalServerError///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.response/-status-code/-internal-server-error/index.html
+$dokka.location:core.domain.response/StatusCode.NotAllowed///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.response/-status-code/-not-allowed/index.html
+$dokka.location:core.domain.response/StatusCode.NotFound///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.response/-status-code/-not-found/index.html
+$dokka.location:core.domain.response/StatusCode.Ok///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.response/-status-code/-ok/index.html
+$dokka.location:core.domain.response/StatusCode.Unauthorized///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}basic-http/core.domain.response/-status-code/-unauthorized/index.html
+$dokka.location:core.domain.response/StatusCode///PointingToDeclaration/basic-http/core.domain.response/-status-code/index.html
+$dokka.location:core.domain.response/StatusCode/code/#/PointingToDeclaration/basic-http/core.domain.response/-status-code/code.html
+$dokka.location:core.domain.response/StatusCode/entries/#/PointingToDeclaration/basic-http/core.domain.response/-status-code/entries.html
+$dokka.location:core.domain.response/StatusCode/valueOf/#kotlin.String/PointingToDeclaration/basic-http/core.domain.response/-status-code/value-of.html
+$dokka.location:core.domain.response/StatusCode/values/#/PointingToDeclaration/basic-http/core.domain.response/-status-code/values.html
+$dokka.location:core.server.config////PointingToDeclaration/basic-http/core.server.config/index.html
+$dokka.location:core.server.config/BasicHttpConfig///PointingToDeclaration/basic-http/core.server.config/-basic-http-config/index.html
+$dokka.location:core.server.config/BasicHttpConfig/startServer/#/PointingToDeclaration/basic-http/core.server.config/-basic-http-config/start-server.html
+$dokka.location:core.server.config/BasicHttpConfig/stopServer/#/PointingToDeclaration/basic-http/core.server.config/-basic-http-config/stop-server.html
+$dokka.location:core.server.config/HttpContextConfig///PointingToDeclaration/basic-http/core.server.config/-http-context-config/index.html
+$dokka.location:core.server.config/HttpContextConfig/HttpContextConfig/#com.sun.net.httpserver.HttpServer/PointingToDeclaration/basic-http/core.server.config/-http-context-config/-http-context-config.html
+$dokka.location:core.server.config/HttpContextConfig/createContexts/#core.domain.controller.BaseController/PointingToDeclaration/basic-http/core.server.config/-http-context-config/create-contexts.html
+$dokka.location:core.server.extensions////PointingToDeclaration/basic-http/core.server.extensions/index.html
+$dokka.location:core.server.extensions/HttpHandlerExtensions///PointingToDeclaration/basic-http/core.server.extensions/-http-handler-extensions/index.html
+$dokka.location:core.server.extensions/HttpHandlerExtensions/jsonToObject/kotlin.String#kotlin.String/PointingToDeclaration/basic-http/core.server.extensions/-http-handler-extensions/json-to-object.html
+$dokka.location:core.server.extensions/HttpHandlerExtensions/parseTo/kotlin.String#kotlin.String/PointingToDeclaration/basic-http/core.server.extensions/-http-handler-extensions/parse-to.html
+$dokka.location:core.server.extensions/HttpHandlerExtensions/send/com.sun.net.httpserver.HttpExchange#core.domain.response.Json[kotlin.Any]/PointingToDeclaration/basic-http/core.server.extensions/-http-handler-extensions/send.html
+$dokka.location:core.server.extensions/HttpHandlerExtensions/toJsonString/core.domain.response.Json[kotlin.Any]#/PointingToDeclaration/basic-http/core.server.extensions/-http-handler-extensions/to-json-string.html
+$dokka.location:core.server.extensions/HttpHandlerExtensions/toMapIfQuery/kotlin.String#/PointingToDeclaration/basic-http/core.server.extensions/-http-handler-extensions/to-map-if-query.html
+$dokka.location:core.server.filters////PointingToDeclaration/basic-http/core.server.filters/index.html
+$dokka.location:core.server.filters/AuthenticationHandlerFilter///PointingToDeclaration/basic-http/core.server.filters/-authentication-handler-filter/index.html
+$dokka.location:core.server.filters/AuthenticationHandlerFilter/AuthenticationHandlerFilter/#java.lang.reflect.Method/PointingToDeclaration/basic-http/core.server.filters/-authentication-handler-filter/-authentication-handler-filter.html
+$dokka.location:core.server.filters/AuthenticationHandlerFilter/description/#/PointingToDeclaration/basic-http/core.server.filters/-authentication-handler-filter/description.html
+$dokka.location:core.server.filters/AuthenticationHandlerFilter/doFilter/#com.sun.net.httpserver.HttpExchange?#com.sun.net.httpserver.Filter.Chain?/PointingToDeclaration/basic-http/core.server.filters/-authentication-handler-filter/do-filter.html
+$dokka.location:core.server.filters/PreRequestHandlerLogFilter///PointingToDeclaration/basic-http/core.server.filters/-pre-request-handler-log-filter/index.html
+$dokka.location:core.server.filters/PreRequestHandlerLogFilter/PreRequestHandlerLogFilter/#/PointingToDeclaration/basic-http/core.server.filters/-pre-request-handler-log-filter/-pre-request-handler-log-filter.html
+$dokka.location:core.server.filters/PreRequestHandlerLogFilter/description/#/PointingToDeclaration/basic-http/core.server.filters/-pre-request-handler-log-filter/description.html
+$dokka.location:core.server.filters/PreRequestHandlerLogFilter/doFilter/#com.sun.net.httpserver.HttpExchange?#com.sun.net.httpserver.Filter.Chain?/PointingToDeclaration/basic-http/core.server.filters/-pre-request-handler-log-filter/do-filter.html
+$dokka.location:core.server.filters/RequestValidationHandlerFilter///PointingToDeclaration/basic-http/core.server.filters/-request-validation-handler-filter/index.html
+$dokka.location:core.server.filters/RequestValidationHandlerFilter/RequestValidationHandlerFilter/#java.lang.reflect.Method#kotlin.Boolean/PointingToDeclaration/basic-http/core.server.filters/-request-validation-handler-filter/-request-validation-handler-filter.html
+$dokka.location:core.server.filters/RequestValidationHandlerFilter/description/#/PointingToDeclaration/basic-http/core.server.filters/-request-validation-handler-filter/description.html
+$dokka.location:core.server.filters/RequestValidationHandlerFilter/doFilter/#com.sun.net.httpserver.HttpExchange?#com.sun.net.httpserver.Filter.Chain?/PointingToDeclaration/basic-http/core.server.filters/-request-validation-handler-filter/do-filter.html
+$dokka.location:core.server.handlers////PointingToDeclaration/basic-http/core.server.handlers/index.html
+$dokka.location:core.server.handlers/RequestHttpHandler///PointingToDeclaration/basic-http/core.server.handlers/-request-http-handler/index.html
+$dokka.location:core.server.handlers/RequestHttpHandler/RequestHttpHandler/#core.domain.controller.BaseController#java.lang.reflect.Method#kotlin.String/PointingToDeclaration/basic-http/core.server.handlers/-request-http-handler/-request-http-handler.html
+$dokka.location:core.server.handlers/RequestHttpHandler/handle/#com.sun.net.httpserver.HttpExchange/PointingToDeclaration/basic-http/core.server.handlers/-request-http-handler/handle.html
 $dokka.location:database.annotations////PointingToDeclaration/basic-http/database.annotations/index.html
 $dokka.location:database.annotations/Column///PointingToDeclaration/basic-http/database.annotations/-column/index.html
 $dokka.location:database.annotations/Column/name/#/PointingToDeclaration/basic-http/database.annotations/-column/name.html
@@ -149,17 +148,16 @@ $dokka.location:database.interfaces/IBasicOrm/findAll/#/PointingToDeclaration/b
 $dokka.location:database.interfaces/IBasicOrm/findOne/#kotlin.Any/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/find-one.html
 $dokka.location:database.interfaces/IBasicOrm/insert/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/insert.html
 $dokka.location:database.interfaces/IBasicOrm/updateOne/#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/basic-http/database.interfaces/-i-basic-orm/update-one.html
-core.annotations
-core.authentication
-core.config
+common
 core.di
-core.domain
-core.enums
-core.filters
-core.handlers
-core.interfaces
-core.logs
-core.resolvers
+core.domain.authentication
+core.domain.controller
+core.domain.request
+core.domain.response
+core.server.config
+core.server.extensions
+core.server.filters
+core.server.handlers
 database.annotations
 database.config
 database.enums

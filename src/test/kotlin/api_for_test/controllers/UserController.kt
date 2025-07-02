@@ -1,14 +1,15 @@
 package api_for_test.controllers
 
-import core.enums.RequestMethod
 import api_for_test.entities.User
 import api_for_test.interfaces.IUserService
-import core.annotations.*
-import core.authentication.JwtCreator
-import core.domain.Json
-import core.enums.StatusCode
-import core.interfaces.BaseController
-import core.interfaces.IJwtCreator
+import core.domain.authentication.JwtCreator
+import core.domain.response.Json
+import core.domain.response.StatusCode
+import core.domain.controller.BaseController
+import core.domain.authentication.IJwtCreator
+import core.domain.authentication.UseAuthentication
+import core.domain.controller.Controller
+import core.domain.request.*
 
 
 @Controller

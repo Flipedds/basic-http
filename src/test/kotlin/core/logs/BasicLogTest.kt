@@ -1,6 +1,7 @@
 package core.logs
 
-import core.enums.LogColors
+import common.BasicLog
+import common.LogColors
 import org.junit.jupiter.api.Test
 import shared.BaseTest
 import java.io.ByteArrayOutputStream

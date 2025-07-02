@@ -1,7 +1,7 @@
 package database.config
 
-import core.enums.LogColors
-import core.logs.BasicLog
+import common.LogColors
+import common.BasicLog
 import database.annotations.Column
 import database.annotations.Id
 import database.annotations.JoinColumn

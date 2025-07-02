@@ -2,6 +2,7 @@ package core.enums
 
 import org.junit.jupiter.api.Test
 import shared.BaseTest
+import common.LogColors
 
 class LogColorsTest: BaseTest() {
     @Test

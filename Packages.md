@@ -1,38 +1,35 @@
 # Module basic-http
 Basic implementation of a Back-End Web framework in Kotlin and Gradle
 
-# Package core.annotations
-Contains Framework Annotations.
-
-# Package core.authentication
-Contains Framework Authentication Classes.
-
-# Package core.config
-Contains Framework Start, Stop, Di Configurations.
+# Package common
+Contains Common Classes.
 
 # Package core.di
-Contains Dependency Injection Container.
+Contains Dependency Injection Classes.
 
-# Package core.domain
-Contains Framework Json Domain.
+# Package core.domain.authentication
+Contains Framework Authentication Classes.
 
-# Package core.enums
-Contains Framework Enums.
+# Package core.domain.controller
+Contains Framework Controller Classes.
 
-# Package core.filters
-Contains Framework Http Filters for Requests.
+# Package core.domain.request
+Contains Framework Request Classes.
 
-# Package core.handlers
-Contains Framework Http Handlers for requests e responses.
+# Package core.domain.response
+Contains Framework Response Classes.
 
-# Package core.interfaces
-Contains Framework Interfaces (contracts) and K-extensions.
+# Package core.server.config
+Contains Framework Start, Stop, Context Configurations.
 
-# Package core.logs
-Contains Framework Logs.
+# Package core.server.extensions
+Contains Framework Server Http Extensions.
 
-# Package core.resolvers
-Contains Framework Resolvers.
+# Package core.server.filters
+Contains Framework Server Filters.
+
+# Package core.server.handlers
+Contains Framework Server handlers.
 
 # Package database.annotations
 Contains Framework Database orm annotations.

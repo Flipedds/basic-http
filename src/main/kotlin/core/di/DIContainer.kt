@@ -1,8 +1,7 @@
 package core.di
 
-import core.annotations.Injectable
-import core.enums.LogColors
-import core.logs.BasicLog
+import common.LogColors
+import common.BasicLog
 import io.github.classgraph.ClassGraph
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.ScanResult

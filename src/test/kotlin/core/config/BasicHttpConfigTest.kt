@@ -1,11 +1,12 @@
 package core.config
 
-import core.authentication.JwtCreator
+import core.domain.authentication.JwtCreator
 import io.restassured.RestAssured.*
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.*
 import shared.BaseTest
+import core.server.config.BasicHttpConfig
 
 
 class BasicHttpConfigTest: BaseTest() {
