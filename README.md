@@ -77,8 +77,6 @@ server.jwtkey=SECRET_KEY
 
 ### Framework Initializer
 ````kotlin
-import core.server.config.BasicHttpConfig
-
 fun main() {
     BasicHttpConfig.startServer()
 }
