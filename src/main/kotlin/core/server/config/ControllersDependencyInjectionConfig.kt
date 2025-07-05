@@ -1,7 +1,8 @@
-package core.di
+package core.server.config
 
 import com.sun.net.httpserver.HttpServer
-import core.server.config.HttpContextConfig
+import core.di.DIContainer
+import core.di.DependencyInjectionResolver
 import core.domain.controller.Controller
 import core.domain.controller.BaseController
 import io.github.classgraph.ClassGraph

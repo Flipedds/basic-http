@@ -1,7 +1,7 @@
 package api_for_test.interfaces
 
 import api_for_test.entities.User
-import core.di.Injectable
+import core.domain.di.Injectable
 
 @Injectable
 interface IUserService {

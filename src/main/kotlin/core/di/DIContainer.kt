@@ -2,6 +2,7 @@ package core.di
 
 import common.LogColors
 import common.BasicLog
+import core.domain.di.Injectable
 import io.github.classgraph.ClassGraph
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.ScanResult

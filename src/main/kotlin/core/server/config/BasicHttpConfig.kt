@@ -2,7 +2,6 @@ package core.server.config
 
 import com.sun.net.httpserver.HttpServer
 import com.sun.net.httpserver.spi.HttpServerProvider
-import core.di.ControllersDependencyInjectionConfig
 import common.LogColors
 import common.BasicLog
 import java.io.FileInputStream

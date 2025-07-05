@@ -1,4 +1,4 @@
-package core.di
+package core.domain.di
 
 /**
  * This annotation is used to mark a class as injectable.

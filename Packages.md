@@ -13,6 +13,9 @@ Contains Framework Authentication Classes.
 # Package core.domain.controller
 Contains Framework Controller Classes.
 
+# Package core.domain.di
+Contains Framework Response Classes.
+
 # Package core.domain.request
 Contains Framework Request Classes.
 

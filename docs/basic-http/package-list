@@ -14,16 +14,12 @@ $dokka.location:common/LogColors/entries/#/PointingToDeclaration/basic-http/com
 $dokka.location:common/LogColors/valueOf/#kotlin.String/PointingToDeclaration/basic-http/common/-log-colors/value-of.html
 $dokka.location:common/LogColors/values/#/PointingToDeclaration/basic-http/common/-log-colors/values.html
 $dokka.location:core.di////PointingToDeclaration/basic-http/core.di/index.html
-$dokka.location:core.di/ControllersDependencyInjectionConfig///PointingToDeclaration/basic-http/core.di/-controllers-dependency-injection-config/index.html
-$dokka.location:core.di/ControllersDependencyInjectionConfig/ControllersDependencyInjectionConfig/#com.sun.net.httpserver.HttpServer/PointingToDeclaration/basic-http/core.di/-controllers-dependency-injection-config/-controllers-dependency-injection-config.html
-$dokka.location:core.di/ControllersDependencyInjectionConfig/withReflection/#/PointingToDeclaration/basic-http/core.di/-controllers-dependency-injection-config/with-reflection.html
 $dokka.location:core.di/DIContainer///PointingToDeclaration/basic-http/core.di/-d-i-container/index.html
 $dokka.location:core.di/DIContainer/getBean/#java.lang.Class[*]/PointingToDeclaration/basic-http/core.di/-d-i-container/get-bean.html
 $dokka.location:core.di/DIContainer/initializeDI/#/PointingToDeclaration/basic-http/core.di/-d-i-container/initialize-d-i.html
 $dokka.location:core.di/DependencyInjectionResolver///PointingToDeclaration/basic-http/core.di/-dependency-injection-resolver/index.html
 $dokka.location:core.di/DependencyInjectionResolver/DependencyInjectionResolver/#java.lang.Class[*]/PointingToDeclaration/basic-http/core.di/-dependency-injection-resolver/-dependency-injection-resolver.html
 $dokka.location:core.di/DependencyInjectionResolver/getInstance/#/PointingToDeclaration/basic-http/core.di/-dependency-injection-resolver/get-instance.html
-$dokka.location:core.di/Injectable///PointingToDeclaration/basic-http/core.di/-injectable/index.html
 $dokka.location:core.domain.authentication////PointingToDeclaration/basic-http/core.domain.authentication/index.html
 $dokka.location:core.domain.authentication/IJwtCreator///PointingToDeclaration/basic-http/core.domain.authentication/-i-jwt-creator/index.html
 $dokka.location:core.domain.authentication/IJwtCreator/createJwt/#kotlin.String/PointingToDeclaration/basic-http/core.domain.authentication/-i-jwt-creator/create-jwt.html
@@ -37,6 +33,8 @@ $dokka.location:core.domain.authentication/UseAuthentication///PointingToDeclara
 $dokka.location:core.domain.controller////PointingToDeclaration/basic-http/core.domain.controller/index.html
 $dokka.location:core.domain.controller/BaseController///PointingToDeclaration/basic-http/core.domain.controller/-base-controller/index.html
 $dokka.location:core.domain.controller/Controller///PointingToDeclaration/basic-http/core.domain.controller/-controller/index.html
+$dokka.location:core.domain.di////PointingToDeclaration/basic-http/core.domain.di/index.html
+$dokka.location:core.domain.di/Injectable///PointingToDeclaration/basic-http/core.domain.di/-injectable/index.html
 $dokka.location:core.domain.request////PointingToDeclaration/basic-http/core.domain.request/index.html
 $dokka.location:core.domain.request/Body///PointingToDeclaration/basic-http/core.domain.request/-body/index.html
 $dokka.location:core.domain.request/Mapping///PointingToDeclaration/basic-http/core.domain.request/-mapping/index.html
@@ -76,6 +74,9 @@ $dokka.location:core.server.config////PointingToDeclaration/basic-http/core.ser
 $dokka.location:core.server.config/BasicHttpConfig///PointingToDeclaration/basic-http/core.server.config/-basic-http-config/index.html
 $dokka.location:core.server.config/BasicHttpConfig/startServer/#/PointingToDeclaration/basic-http/core.server.config/-basic-http-config/start-server.html
 $dokka.location:core.server.config/BasicHttpConfig/stopServer/#/PointingToDeclaration/basic-http/core.server.config/-basic-http-config/stop-server.html
+$dokka.location:core.server.config/ControllersDependencyInjectionConfig///PointingToDeclaration/basic-http/core.server.config/-controllers-dependency-injection-config/index.html
+$dokka.location:core.server.config/ControllersDependencyInjectionConfig/ControllersDependencyInjectionConfig/#com.sun.net.httpserver.HttpServer/PointingToDeclaration/basic-http/core.server.config/-controllers-dependency-injection-config/-controllers-dependency-injection-config.html
+$dokka.location:core.server.config/ControllersDependencyInjectionConfig/withReflection/#/PointingToDeclaration/basic-http/core.server.config/-controllers-dependency-injection-config/with-reflection.html
 $dokka.location:core.server.config/HttpContextConfig///PointingToDeclaration/basic-http/core.server.config/-http-context-config/index.html
 $dokka.location:core.server.config/HttpContextConfig/HttpContextConfig/#com.sun.net.httpserver.HttpServer/PointingToDeclaration/basic-http/core.server.config/-http-context-config/-http-context-config.html
 $dokka.location:core.server.config/HttpContextConfig/createContexts/#core.domain.controller.BaseController/PointingToDeclaration/basic-http/core.server.config/-http-context-config/create-contexts.html
@@ -152,6 +153,7 @@ common
 core.di
 core.domain.authentication
 core.domain.controller
+core.domain.di
 core.domain.request
 core.domain.response
 core.server.config
