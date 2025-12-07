@@ -508,16 +508,12 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                     val value = field.get(entity)
                     columnsToUpdate.add("$joinColumnName = ?")
                     
-                    if (field.getAnnotation(JoinColumn::class.java) != null) {
-                        val joinEntity = field.type
-                        joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
-                            ?.let { joinEntityIdField ->
-                                joinEntityIdField.isAccessible = true
-                                valuesToUpdate.add(joinEntityIdField.get(value))
-                            }
-                    } else {
-                        valuesToUpdate.add(value)
-                    }
+                    val joinEntity = field.type
+                    joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                        ?.let { joinEntityIdField ->
+                            joinEntityIdField.isAccessible = true
+                            valuesToUpdate.add(joinEntityIdField.get(value))
+                        }
                     return@forEach
                 }
             }
