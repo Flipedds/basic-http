@@ -12,6 +12,7 @@ import core.server.extensions.HttpHandlerExtensions
 import java.io.IOException
 import java.lang.reflect.Method
 import java.nio.charset.StandardCharsets
+import kotlin.reflect.KParameter
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.jvm.javaType
@@ -31,48 +32,67 @@ class RequestHttpHandler(
     private val method: Method,
     private val path: String
 ) : HttpHandler, HttpHandlerExtensions {
+    
+    // Cache parameter metadata to avoid reflection on every request
+    private data class ParameterMetadata(
+        val name: String?,
+        val typeName: String,
+        val queryParamKey: String?,
+        val isQueryParam: Boolean,
+        val isBodyParam: Boolean,
+        val isPathParam: Boolean
+    )
+    
+    private val parametersMetadata: List<ParameterMetadata> = method.kotlinFunction?.parameters?.map { parameter ->
+        ParameterMetadata(
+            name = parameter.name,
+            typeName = parameter.type.javaType.typeName,
+            queryParamKey = parameter.findAnnotation<QueryParam>()?.key,
+            isQueryParam = parameter.hasAnnotation<QueryParam>(),
+            isBodyParam = parameter.hasAnnotation<Body>(),
+            isPathParam = parameter.hasAnnotation<PathParam>()
+        )
+    } ?: emptyList()
+    
     @Throws(IOException::class)
     override fun handle(exchange: HttpExchange) {
-        val methodParameters = method.kotlinFunction?.parameters
         val listOfParameters = mutableListOf<Any?>()
 
-        methodParameters?.forEach foreach@{ parameter ->
-            if (parameter.name == "null") {
+        parametersMetadata.forEach { paramMetadata ->
+            if (paramMetadata.name == "null") {
                 listOfParameters.add(null)
-                return@foreach
+                return@forEach
             }
-            if (parameter.hasAnnotation<QueryParam>()) {
-                val queryParam = exchange.requestURI.query?.toMapIfQuery()?.get(parameter.findAnnotation<QueryParam>()!!.key)
+            if (paramMetadata.isQueryParam) {
+                val queryParam = exchange.requestURI.query?.toMapIfQuery()?.get(paramMetadata.queryParamKey!!)
 
                 if(queryParam == null) {
                     exchange.send(
                         Json(
-                            message = "Bad Request !! " + "Query parameter ${parameter.name} is required !!",
+                            message = "Bad Request !! " + "Query parameter ${paramMetadata.name} is required !!",
                             statusCode = StatusCode.BadRequest
                         )
                     )
                     return
                 }
 
-                val parsedQueryParam = queryParam parseTo parameter.type.javaType.typeName
+                val parsedQueryParam = queryParam parseTo paramMetadata.typeName
 
                 if(parsedQueryParam == null) {
                     exchange.send(
                         Json(
-                            message = "Bad Request !! " + "Query parameter ${parameter.name} is not in the correct format !!",
+                            message = "Bad Request !! " + "Query parameter ${paramMetadata.name} is not in the correct format !!",
                             statusCode = StatusCode.BadRequest
                         )
                     )
                     return
                 }
 
-                listOfParameters.add(
-                    parsedQueryParam
-                )
-                return@foreach
+                listOfParameters.add(parsedQueryParam)
+                return@forEach
             }
 
-            if (parameter.hasAnnotation<Body>()) {
+            if (paramMetadata.isBodyParam) {
                 listOfParameters.add(
                     String(
                         exchange
@@ -80,15 +100,15 @@ class RequestHttpHandler(
                             .readAllBytes(),
                         StandardCharsets.UTF_8
                     )
-                        .jsonToObject(parameter.type.javaType.typeName)
+                        .jsonToObject(paramMetadata.typeName)
                 )
-                return@foreach
+                return@forEach
             }
 
-            if(parameter.hasAnnotation<PathParam>()){
-                val pathParam = exchange.requestURI.path.replace(path, "") parseTo parameter.type.javaType.typeName
+            if(paramMetadata.isPathParam){
+                val pathParam = exchange.requestURI.path.replace(path, "") parseTo paramMetadata.typeName
                 listOfParameters.add(pathParam)
-                return@foreach
+                return@forEach
             }
 
         }

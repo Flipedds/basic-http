@@ -84,8 +84,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
             }
 
             val fields: Array<Field> = entity::class.java.declaredFields
-
-            query.append("INSERT INTO $tableName (")
+            val columnsToInsert = mutableListOf<String>()
+            val valuesToInsert = mutableListOf<Any?>()
 
             fields.forEach { field ->
                 field.getAnnotation(Id::class.java)?.let {
@@ -97,65 +97,31 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                 val entityColumnName = field.getAnnotation(Column::class.java)?.name
 
                 if (entityColumnName != null) {
-                    query.append(entityColumnName)
-                    if (field != fields.last()) {
-                        query.append(", ")
-                    }
+                    columnsToInsert.add(entityColumnName)
+                    field.isAccessible = true
+                    valuesToInsert.add(field.get(entity))
                     return@forEach
                 }
 
                 val entityJoinColumnName = field.getAnnotation(JoinColumn::class.java)?.name
                 if (entityJoinColumnName != null) {
-                    query.append(entityJoinColumnName)
-                    if (field != fields.last()) {
-                        query.append(", ")
-                    }
+                    columnsToInsert.add(entityJoinColumnName)
+                    field.isAccessible = true
+                    val value = field.get(entity)
+                    val joinEntity = field.type
+                    joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                        ?.let { joinEntityIdField ->
+                            joinEntityIdField.isAccessible = true
+                            valuesToInsert.add(joinEntityIdField.get(value))
+                        }
                     return@forEach
                 }
             }
 
+            query.append("INSERT INTO $tableName (")
+            query.append(columnsToInsert.joinToString(", "))
             query.append(") VALUES (")
-
-            fields.forEach { field ->
-                field.getAnnotation(Id::class.java)?.let {
-                    if (it.type == GeneratedBy.AUT0_INCREMENT) {
-                        return@forEach
-                    }
-                }
-
-                field.isAccessible = true
-                val value = field.get(entity)
-
-                when (field.type) {
-                    Int::class.java -> query.append(value)
-                    String::class.java -> query.append("'$value'")
-                    Boolean::class.java -> query.append(if (value as Boolean) 1 else 0)
-                    Enum::class.java -> query.append("'${(value as Enum<*>).name}'")
-                    Date::class.java -> query.append("'${(value as Date).time}'")
-                    else -> if (field.getAnnotation(JoinColumn::class.java) != null) {
-                        val joinEntity = field.type
-
-                        joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
-                            ?.let { joinEntityIdField ->
-                                joinEntityIdField.isAccessible = true
-                                when (joinEntityIdField.type) {
-                                    Int::class.java -> query.append(joinEntityIdField.get(value))
-                                    String::class.java -> query.append("'${joinEntityIdField.get(value)}'")
-                                    Boolean::class.java -> query.append(if (joinEntityIdField.get(value) as Boolean) 1 else 0)
-                                    Enum::class.java -> query.append("'${(joinEntityIdField.get(value) as Enum<*>).name}'")
-                                    Date::class.java -> query.append("'${(joinEntityIdField.get(value) as Date).time}'")
-                                    else -> throw IllegalArgumentException("Unsupported data type for join column: ${joinEntityIdField.type}")
-                                }
-                            }
-                    } else {
-                        throw IllegalArgumentException("Unsupported data type for insert: ${field.type}")
-                    }
-                }
-
-                if (field != fields.last()) {
-                    query.append(", ")
-                }
-            }
+            query.append(columnsToInsert.joinToString(", ") { "?" })
             query.append(");")
 
             BasicLog.getLogWithColorFor<BasicOrm<T>>(
@@ -163,10 +129,21 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                 StringBuilder().append(query).toString()
             )
 
-            val statement = connection.createStatement()
+            val statement = connection.prepareStatement(query.toString())
 
-            statement.execute(query.toString())
+            valuesToInsert.forEachIndexed { index, value ->
+                when (value) {
+                    is Int -> statement.setInt(index + 1, value)
+                    is String -> statement.setString(index + 1, value)
+                    is Boolean -> statement.setInt(index + 1, if (value) 1 else 0)
+                    is Enum<*> -> statement.setString(index + 1, value.name)
+                    is Date -> statement.setDate(index + 1, value)
+                    null -> statement.setNull(index + 1, java.sql.Types.NULL)
+                    else -> throw IllegalArgumentException("Unsupported data type for insert: ${value::class.java}")
+                }
+            }
 
+            statement.execute()
             statement.close()
         } catch (e: Exception) {
             val msg = StringBuilder()
@@ -237,26 +214,26 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                                     val joinEntityIdFieldName =
                                         joinEntityIdField.getAnnotation(Column::class.java)?.name
                                     if (joinEntityIdFieldName != null) {
-                                        query.clear()
-                                        query.append(
-                                            "SELECT * FROM $joinEntityTableName WHERE $joinEntityIdFieldName = ${
-                                                resultSet.getObject(
-                                                    joinFieldName
-                                                )
-                                            };"
-                                        )
+                                        val joinQuery = StringBuilder()
+                                        joinQuery.append("SELECT * FROM $joinEntityTableName WHERE $joinEntityIdFieldName = ?;")
+                                        
                                         BasicLog.getLogWithColorFor<BasicOrm<T>>(
                                             LogColors.GREEN,
-                                            StringBuilder().append(query).toString()
+                                            StringBuilder().append(joinQuery).toString()
                                         )
 
-                                        val statement = connection.createStatement()
+                                        val joinStatement = connection.prepareStatement(joinQuery.toString())
+                                        val joinId = resultSet.getObject(joinFieldName)
+                                        
+                                        when (joinId) {
+                                            is Int -> joinStatement.setInt(1, joinId)
+                                            is String -> joinStatement.setString(1, joinId)
+                                            else -> joinStatement.setObject(1, joinId)
+                                        }
 
-                                        statement.executeQuery(query.toString())
+                                        val joinResultSet = joinStatement.executeQuery()
 
-                                        val resultSet = statement.resultSet
-
-                                        if (resultSet.next()) {
+                                        if (joinResultSet.next()) {
                                             val joinEntityObj = joinEntity.getDeclaredConstructor().newInstance()
                                             val joinEntityFields: Array<Field> = joinEntity.declaredFields
 
@@ -266,7 +243,7 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                                                     val joinColumnFieldName =
                                                         joinColumnField.getAnnotation(Column::class.java)?.name
                                                     if (joinColumnFieldName != null) {
-                                                        val value = resultSet.getObject(joinColumnFieldName)
+                                                        val value = joinResultSet.getObject(joinColumnFieldName)
                                                         joinColumnField.set(joinEntityObj, value)
                                                     }
                                                 }
@@ -275,6 +252,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                                         } else {
                                             entityField.set(entityObj, null)
                                         }
+                                        joinResultSet.close()
+                                        joinStatement.close()
                                     }
                                 }
                             }
@@ -326,24 +305,22 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
             val fieldName = idColumn.getAnnotation(Column::class.java)?.name
                 ?: throw IllegalArgumentException("Identifier field ${idColumn.name} does not have a @Column annotation or not has name attribute")
 
-            val identifier = when (id) {
-                is Int -> id
-                is String -> "'$id'"
-                else -> throw IllegalArgumentException("Unsupported data type for identifier column: ${idColumn.type}")
-            }
-
-            query.append("SELECT * FROM $tableName WHERE $fieldName = $identifier LIMIT 1;")
+            query.append("SELECT * FROM $tableName WHERE $fieldName = ? LIMIT 1;")
 
             BasicLog.getLogWithColorFor<BasicOrm<T>>(
                 LogColors.GREEN,
                 StringBuilder().append(query).toString()
             )
 
-            val statement = connection.createStatement()
+            val statement = connection.prepareStatement(query.toString())
+            
+            when (id) {
+                is Int -> statement.setInt(1, id)
+                is String -> statement.setString(1, id)
+                else -> throw IllegalArgumentException("Unsupported data type for identifier column: ${idColumn.type}")
+            }
 
-            statement.executeQuery(query.toString())
-
-            val resultSet = statement.resultSet
+            val resultSet = statement.executeQuery()
 
             while (resultSet.next()) {
                 val entityObj = entityClass.java.getDeclaredConstructor().newInstance()
@@ -369,26 +346,26 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                                     val joinEntityIdFieldName =
                                         joinEntityIdField.getAnnotation(Column::class.java)?.name
                                     if (joinEntityIdFieldName != null) {
-                                        query.clear()
-                                        query.append(
-                                            "SELECT * FROM $joinEntityTableName WHERE $joinEntityIdFieldName = ${
-                                                resultSet.getObject(
-                                                    joinFieldName
-                                                )
-                                            };"
-                                        )
+                                        val joinQuery = StringBuilder()
+                                        joinQuery.append("SELECT * FROM $joinEntityTableName WHERE $joinEntityIdFieldName = ?;")
+                                        
                                         BasicLog.getLogWithColorFor<BasicOrm<T>>(
                                             LogColors.GREEN,
-                                            StringBuilder().append(query).toString()
+                                            StringBuilder().append(joinQuery).toString()
                                         )
 
-                                        val statement = connection.createStatement()
+                                        val joinStatement = connection.prepareStatement(joinQuery.toString())
+                                        val joinId = resultSet.getObject(joinFieldName)
+                                        
+                                        when (joinId) {
+                                            is Int -> joinStatement.setInt(1, joinId)
+                                            is String -> joinStatement.setString(1, joinId)
+                                            else -> joinStatement.setObject(1, joinId)
+                                        }
 
-                                        statement.executeQuery(query.toString())
+                                        val joinResultSet = joinStatement.executeQuery()
 
-                                        val resultSet = statement.resultSet
-
-                                        if (resultSet.next()) {
+                                        if (joinResultSet.next()) {
                                             val joinEntityObj = joinEntity.getDeclaredConstructor().newInstance()
                                             val joinEntityFields: Array<Field> = joinEntity.declaredFields
 
@@ -398,7 +375,7 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                                                     val joinColumnFieldName =
                                                         joinColumnField.getAnnotation(Column::class.java)?.name
                                                     if (joinColumnFieldName != null) {
-                                                        val value = resultSet.getObject(joinColumnFieldName)
+                                                        val value = joinResultSet.getObject(joinColumnFieldName)
                                                         joinColumnField.set(joinEntityObj, value)
                                                     }
                                                 }
@@ -407,6 +384,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                                         } else {
                                             entityField.set(entityObj, null)
                                         }
+                                        joinResultSet.close()
+                                        joinStatement.close()
                                     }
                                 }
                             }
@@ -449,8 +428,6 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
 
             val fields: Array<Field> = entity::class.java.declaredFields
 
-            query.append("DELETE FROM $tableName WHERE ")
-
             val idColumn = fields.firstOrNull { it.getAnnotation(Id::class.java) != null }
                 ?: throw IllegalArgumentException("Class ${entity::class.simpleName} does not have an identifier field")
 
@@ -459,23 +436,23 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
 
             idColumn.isAccessible = true
 
-            val id = when (idColumn.get(entity)) {
-                is Int -> idColumn.get(entity) as Int
-                is String -> "'${idColumn.get(entity)}'"
-                else -> throw IllegalArgumentException("Unsupported data type for identifier column: ${idColumn.type}")
-            }
-
-            query.append("$fieldName = $id LIMIT 1;")
+            query.append("DELETE FROM $tableName WHERE $fieldName = ? LIMIT 1;")
 
             BasicLog.getLogWithColorFor<BasicOrm<T>>(
                 LogColors.GREEN,
                 StringBuilder().append(query).toString()
             )
 
-            val statement = connection.createStatement()
+            val statement = connection.prepareStatement(query.toString())
+            
+            val id = idColumn.get(entity)
+            when (id) {
+                is Int -> statement.setInt(1, id)
+                is String -> statement.setString(1, id)
+                else -> throw IllegalArgumentException("Unsupported data type for identifier column: ${idColumn.type}")
+            }
 
-            statement.execute(query.toString())
-
+            statement.execute()
             statement.close()
         } catch (e: Exception) {
             val msg = StringBuilder()
@@ -507,8 +484,8 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
             }
 
             val fields: Array<Field> = entity::class.java.declaredFields
-
-            query.append("UPDATE $tableName SET ")
+            val columnsToUpdate = mutableListOf<String>()
+            val valuesToUpdate = mutableListOf<Any?>()
 
             fields.forEach { field ->
                 field.getAnnotation(Id::class.java)?.let {
@@ -520,67 +497,26 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                 val name = field.getAnnotation(Column::class.java)?.name
 
                 if (name != null) {
-                    val value = field.get(entity)
-
-                    when (field.type) {
-                        Int::class.java -> query.append("$name = $value")
-                        String::class.java -> query.append("$name = '$value'")
-                        Boolean::class.java -> query.append("$name = ${if (value as Boolean) 1 else 0}")
-                        Enum::class.java -> query.append("'${(value as Enum<*>).name}'")
-                        Date::class.java -> query.append("'${(value as Date).time}'")
-                        else -> throw IllegalArgumentException("Unsupported data type for field column: ${field.type}")
-                    }
-                    if (field != fields.last()) {
-                        query.append(", ")
-                    }
+                    columnsToUpdate.add("$name = ?")
+                    valuesToUpdate.add(field.get(entity))
                     return@forEach
                 }
 
                 val joinColumnName = field.getAnnotation(JoinColumn::class.java)?.name
-                field.isAccessible = true
 
                 if (joinColumnName != null) {
                     val value = field.get(entity)
-
-                    when (field.type) {
-                        Int::class.java -> query.append("$joinColumnName = $value")
-                        String::class.java -> query.append("$joinColumnName = '$value'")
-                        Boolean::class.java -> query.append("$joinColumnName = ${if (value as Boolean) 1 else 0}")
-                        Enum::class.java -> query.append("'${(value as Enum<*>).name}'")
-                        Date::class.java -> query.append("'${(value as Date).time}'")
-                        else -> if (field.getAnnotation(JoinColumn::class.java) != null) {
-                            val joinEntity = field.type
-
-                            joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
-                                ?.let { joinEntityIdField ->
-                                    joinEntityIdField.isAccessible = true
-                                    when (joinEntityIdField.type) {
-                                        Int::class.java -> query.append("$joinColumnName = ${joinEntityIdField.get(value)}")
-                                        String::class.java -> query.append(
-                                            "$joinColumnName = '${
-                                                joinEntityIdField.get(
-                                                    value
-                                                )
-                                            }'"
-                                        )
-
-                                        Boolean::class.java -> query.append(
-                                            "$joinColumnName = ${
-                                                if (joinEntityIdField.get(
-                                                        value
-                                                    ) as Boolean
-                                                ) 1 else 0
-                                            }"
-                                        )
-                                        else -> throw IllegalArgumentException("Unsupported data type for join column: ${joinEntityIdField.type}")
-                                    }
-                                }
-                        } else {
-                            throw IllegalArgumentException("Unsupported data type for insert: ${field.type}")
-                        }
-                    }
-                    if (field != fields.last()) {
-                        query.append(", ")
+                    columnsToUpdate.add("$joinColumnName = ?")
+                    
+                    if (field.getAnnotation(JoinColumn::class.java) != null) {
+                        val joinEntity = field.type
+                        joinEntity.declaredFields.firstOrNull { it.getAnnotation(Id::class.java) != null }
+                            ?.let { joinEntityIdField ->
+                                joinEntityIdField.isAccessible = true
+                                valuesToUpdate.add(joinEntityIdField.get(value))
+                            }
+                    } else {
+                        valuesToUpdate.add(value)
                     }
                     return@forEach
                 }
@@ -593,24 +529,38 @@ abstract class BasicOrm<T : Any>(val entityClass: KClass<T>) {
                 ?: throw IllegalArgumentException("Identifier field ${idColumn.name} does not have a @Column annotation or not has name attribute")
 
             idColumn.isAccessible = true
+            val id = idColumn.get(entity)
 
-            val id = when (idColumn.get(entity)) {
-                is Int -> idColumn.get(entity) as Int
-                is String -> "'${idColumn.get(entity)}'"
-                else -> throw IllegalArgumentException("Unsupported data type for identifier column: ${idColumn.type}")
-            }
-
-            query.append(" WHERE $fieldName = $id LIMIT 1;")
+            query.append("UPDATE $tableName SET ")
+            query.append(columnsToUpdate.joinToString(", "))
+            query.append(" WHERE $fieldName = ? LIMIT 1;")
 
             BasicLog.getLogWithColorFor<BasicOrm<T>>(
                 LogColors.GREEN,
                 StringBuilder().append(query).toString()
             )
 
-            val statement = connection.createStatement()
+            val statement = connection.prepareStatement(query.toString())
 
-            statement.execute(query.toString())
+            valuesToUpdate.forEachIndexed { index, value ->
+                when (value) {
+                    is Int -> statement.setInt(index + 1, value)
+                    is String -> statement.setString(index + 1, value)
+                    is Boolean -> statement.setInt(index + 1, if (value) 1 else 0)
+                    is Enum<*> -> statement.setString(index + 1, value.name)
+                    is Date -> statement.setDate(index + 1, value)
+                    null -> statement.setNull(index + 1, java.sql.Types.NULL)
+                    else -> throw IllegalArgumentException("Unsupported data type for update: ${value::class.java}")
+                }
+            }
 
+            when (id) {
+                is Int -> statement.setInt(valuesToUpdate.size + 1, id)
+                is String -> statement.setString(valuesToUpdate.size + 1, id)
+                else -> throw IllegalArgumentException("Unsupported data type for identifier column: ${idColumn.type}")
+            }
+
+            statement.execute()
             statement.close()
         } catch (e: Exception) {
             val msg = StringBuilder()

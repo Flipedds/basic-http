@@ -20,14 +20,23 @@ import kotlin.jvm.Throws
 @Suppress("UNCHECKED_CAST")
 object DIContainer {
     private val beanMap: MutableMap<Class<*>, Any> = HashMap()
+    private val interfaceImplementationCache: MutableMap<String, String> = HashMap()
 
     fun initializeDI() {
         beanMap.clear()
+        interfaceImplementationCache.clear()
         ClassGraph()
             .enableAllInfo()
             .acceptPackages()
             .scan()
             .use { scanResult: ScanResult ->
+                // Cache all interface implementations for future lookups
+                scanResult.allInterfaces.forEach { interfaceInfo ->
+                    scanResult.getClassesImplementing(interfaceInfo.name).firstOrNull()?.let { impl ->
+                        interfaceImplementationCache[interfaceInfo.name] = impl.name
+                    }
+                }
+                
                 scanResult
                     .getClassesWithAnyAnnotation(Injectable::class.java.name)
                     .forEach { classWithInjectable: ClassInfo ->
@@ -54,17 +63,9 @@ object DIContainer {
         val keyForBeanClass = toBeInjectedClass
 
         if (toBeInjectedClass.isInterface) {
-            toBeInjectedClass = Class.forName(
-                ClassGraph()
-                    .enableAllInfo()
-                    .acceptPackages()
-                    .scan()
-                    .let { scanResult: ScanResult ->
-                        scanResult
-                            .getClassesImplementing(keyForBeanClass.name)
-                            .firstOrNull()?.name
-                            ?: throw NotImplementedError("Interface: ${keyForBeanClass.simpleName} not implemented")
-                    })
+            val implementationClassName = interfaceImplementationCache[keyForBeanClass.name]
+                ?: throw NotImplementedError("Interface: ${keyForBeanClass.simpleName} not implemented")
+            toBeInjectedClass = Class.forName(implementationClassName)
         }
 
         val constructor: Constructor<*> = toBeInjectedClass.constructors.first()
