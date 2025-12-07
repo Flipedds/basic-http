@@ -1,7 +1,7 @@
 package com.example.interfaces
 
 import com.example.entities.User
-import core.annotations.Injectable
+import core.domain.di.Injectable
 
 @Injectable
 interface IUserRepository {

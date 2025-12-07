@@ -4,18 +4,10 @@ import com.example.dtos.TbTestDto
 import com.example.entities.User
 import com.example.interfaces.ITbTestService
 import com.example.interfaces.IUserService
-import core.annotations.Body
-import core.annotations.Controller
-import core.annotations.Mapping
-import core.annotations.PathParam
-import core.annotations.QueryParam
-import core.annotations.UseAuthentication
-import core.authentication.JwtCreator
-import core.domain.Json
-import core.enums.RequestMethod
-import core.enums.StatusCode
-import core.interfaces.BaseController
-import core.interfaces.IJwtCreator
+import core.domain.request.*
+import core.domain.response.*
+import core.domain.controller.*
+import core.domain.authentication.*
 
 @Controller
 class UserController(private val userService: IUserService,

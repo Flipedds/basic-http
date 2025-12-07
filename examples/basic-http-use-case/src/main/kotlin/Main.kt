@@ -1,6 +1,6 @@
 package com.example
 
-import core.config.BasicHttpConfig
+import core.server.config.BasicHttpConfig
 
 fun main() {
     BasicHttpConfig.startServer()

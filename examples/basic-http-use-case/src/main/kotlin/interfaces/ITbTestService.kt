@@ -1,7 +1,7 @@
 package com.example.interfaces
 
 import com.example.dtos.TbTestDto
-import core.annotations.Injectable
+import core.domain.di.Injectable
 
 // orm injectable use
 @Injectable

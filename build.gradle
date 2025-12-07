@@ -27,6 +27,7 @@ dependencies {
     implementation 'io.github.classgraph:classgraph:4.8.174'
     runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.9.23"
     implementation 'com.mysql:mysql-connector-j:9.2.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.23'
 }
 
 test {
