@@ -8,6 +8,7 @@ import database.annotations.Table
 import database.config.BasicOrm
 import database.enums.GeneratedBy
 import database.enums.Relation
+import core.domain.di.Injectable
 
 @Table(name = "tb_test")
 class TbTest {
@@ -62,7 +63,7 @@ class TbUser {
     }
 }
 
-//@Injectable -> for local test uncomment this line
+// @Injectable // -> for local test uncomment this line
 interface ITbTestOrm: IBasicOrm<TbTest>
 
 class TbTestOrm: BasicOrm<TbTest>(TbTest::class), ITbTestOrm

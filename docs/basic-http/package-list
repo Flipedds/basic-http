@@ -40,6 +40,15 @@ $dokka.location:core.domain.request/Body///PointingToDeclaration/basic-http/cor
 $dokka.location:core.domain.request/Mapping///PointingToDeclaration/basic-http/core.domain.request/-mapping/index.html
 $dokka.location:core.domain.request/Mapping/method/#/PointingToDeclaration/basic-http/core.domain.request/-mapping/method.html
 $dokka.location:core.domain.request/Mapping/path/#/PointingToDeclaration/basic-http/core.domain.request/-mapping/path.html
+$dokka.location:core.domain.request/ParameterData///PointingToDeclaration/basic-http/core.domain.request/-parameter-data/index.html
+$dokka.location:core.domain.request/ParameterData/ParameterData/#kotlin.String?#kotlin.String#kotlin.reflect.KParameter#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/-parameter-data.html
+$dokka.location:core.domain.request/ParameterData/hasBody/#/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/has-body.html
+$dokka.location:core.domain.request/ParameterData/hasPathParam/#/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/has-path-param.html
+$dokka.location:core.domain.request/ParameterData/hasQuery/#/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/has-query.html
+$dokka.location:core.domain.request/ParameterData/name/#/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/name.html
+$dokka.location:core.domain.request/ParameterData/nameIsNull/#/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/name-is-null.html
+$dokka.location:core.domain.request/ParameterData/parameter/#/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/parameter.html
+$dokka.location:core.domain.request/ParameterData/typeName/#/PointingToDeclaration/basic-http/core.domain.request/-parameter-data/type-name.html
 $dokka.location:core.domain.request/PathParam///PointingToDeclaration/basic-http/core.domain.request/-path-param/index.html
 $dokka.location:core.domain.request/QueryParam///PointingToDeclaration/basic-http/core.domain.request/-query-param/index.html
 $dokka.location:core.domain.request/QueryParam/key/#/PointingToDeclaration/basic-http/core.domain.request/-query-param/key.html
